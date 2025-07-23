@@ -1,0 +1,607 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6D612D022E30DFBF004CCD39 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D012E30DFBF004CCD39 /* FirebaseAuth */; };
+		6D612D042E30DFBF004CCD39 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D032E30DFBF004CCD39 /* FirebaseFirestore */; };
+		6D612D062E30DFBF004CCD39 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D052E30DFBF004CCD39 /* FirebaseMessaging */; };
+		6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D072E30DFBF004CCD39 /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6D612CE42E30DF23004CCD39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D612CC92E30DF20004CCD39 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D612CD02E30DF20004CCD39;
+			remoteInfo = Rekindle;
+		};
+		6D612CEE2E30DF23004CCD39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D612CC92E30DF20004CCD39 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D612CD02E30DF20004CCD39;
+			remoteInfo = Rekindle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6D612CD12E30DF20004CCD39 /* Rekindle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rekindle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D612CE32E30DF23004CCD39 /* RekindleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RekindleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D612CED2E30DF23004CCD39 /* RekindleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RekindleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6D612CD32E30DF21004CCD39 /* Rekindle */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Rekindle;
+			sourceTree = "<group>";
+		};
+		6D612CE62E30DF23004CCD39 /* RekindleTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RekindleTests;
+			sourceTree = "<group>";
+		};
+		6D612CF02E30DF23004CCD39 /* RekindleUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RekindleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6D612CCE2E30DF20004CCD39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D612D062E30DFBF004CCD39 /* FirebaseMessaging in Frameworks */,
+				6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */,
+				6D612D022E30DFBF004CCD39 /* FirebaseAuth in Frameworks */,
+				6D612D042E30DFBF004CCD39 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D612CE02E30DF23004CCD39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D612CEA2E30DF23004CCD39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6D612CC82E30DF20004CCD39 = {
+			isa = PBXGroup;
+			children = (
+				6D612CD32E30DF21004CCD39 /* Rekindle */,
+				6D612CE62E30DF23004CCD39 /* RekindleTests */,
+				6D612CF02E30DF23004CCD39 /* RekindleUITests */,
+				6D612CD22E30DF20004CCD39 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6D612CD22E30DF20004CCD39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6D612CD12E30DF20004CCD39 /* Rekindle.app */,
+				6D612CE32E30DF23004CCD39 /* RekindleTests.xctest */,
+				6D612CED2E30DF23004CCD39 /* RekindleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6D612CD02E30DF20004CCD39 /* Rekindle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D612CF72E30DF23004CCD39 /* Build configuration list for PBXNativeTarget "Rekindle" */;
+			buildPhases = (
+				6D612CCD2E30DF20004CCD39 /* Sources */,
+				6D612CCE2E30DF20004CCD39 /* Frameworks */,
+				6D612CCF2E30DF20004CCD39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6D612CD32E30DF21004CCD39 /* Rekindle */,
+			);
+			name = Rekindle;
+			packageProductDependencies = (
+				6D612D012E30DFBF004CCD39 /* FirebaseAuth */,
+				6D612D032E30DFBF004CCD39 /* FirebaseFirestore */,
+				6D612D052E30DFBF004CCD39 /* FirebaseMessaging */,
+				6D612D072E30DFBF004CCD39 /* FirebaseStorage */,
+			);
+			productName = Rekindle;
+			productReference = 6D612CD12E30DF20004CCD39 /* Rekindle.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6D612CE22E30DF23004CCD39 /* RekindleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D612CFA2E30DF23004CCD39 /* Build configuration list for PBXNativeTarget "RekindleTests" */;
+			buildPhases = (
+				6D612CDF2E30DF23004CCD39 /* Sources */,
+				6D612CE02E30DF23004CCD39 /* Frameworks */,
+				6D612CE12E30DF23004CCD39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6D612CE52E30DF23004CCD39 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6D612CE62E30DF23004CCD39 /* RekindleTests */,
+			);
+			name = RekindleTests;
+			packageProductDependencies = (
+			);
+			productName = RekindleTests;
+			productReference = 6D612CE32E30DF23004CCD39 /* RekindleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6D612CEC2E30DF23004CCD39 /* RekindleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D612CFD2E30DF23004CCD39 /* Build configuration list for PBXNativeTarget "RekindleUITests" */;
+			buildPhases = (
+				6D612CE92E30DF23004CCD39 /* Sources */,
+				6D612CEA2E30DF23004CCD39 /* Frameworks */,
+				6D612CEB2E30DF23004CCD39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6D612CEF2E30DF23004CCD39 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6D612CF02E30DF23004CCD39 /* RekindleUITests */,
+			);
+			name = RekindleUITests;
+			packageProductDependencies = (
+			);
+			productName = RekindleUITests;
+			productReference = 6D612CED2E30DF23004CCD39 /* RekindleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6D612CC92E30DF20004CCD39 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					6D612CD02E30DF20004CCD39 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					6D612CE22E30DF23004CCD39 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 6D612CD02E30DF20004CCD39;
+					};
+					6D612CEC2E30DF23004CCD39 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 6D612CD02E30DF20004CCD39;
+					};
+				};
+			};
+			buildConfigurationList = 6D612CCC2E30DF20004CCD39 /* Build configuration list for PBXProject "Rekindle" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6D612CC82E30DF20004CCD39;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6D612CD22E30DF20004CCD39 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6D612CD02E30DF20004CCD39 /* Rekindle */,
+				6D612CE22E30DF23004CCD39 /* RekindleTests */,
+				6D612CEC2E30DF23004CCD39 /* RekindleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6D612CCF2E30DF20004CCD39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D612CE12E30DF23004CCD39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D612CEB2E30DF23004CCD39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6D612CCD2E30DF20004CCD39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D612CDF2E30DF23004CCD39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D612CE92E30DF23004CCD39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6D612CE52E30DF23004CCD39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D612CD02E30DF20004CCD39 /* Rekindle */;
+			targetProxy = 6D612CE42E30DF23004CCD39 /* PBXContainerItemProxy */;
+		};
+		6D612CEF2E30DF23004CCD39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D612CD02E30DF20004CCD39 /* Rekindle */;
+			targetProxy = 6D612CEE2E30DF23004CCD39 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6D612CF52E30DF23004CCD39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6D612CF62E30DF23004CCD39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6D612CF82E30DF23004CCD39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.Rekindle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6D612CF92E30DF23004CCD39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.Rekindle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6D612CFB2E30DF23004CCD39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.RekindleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rekindle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rekindle";
+			};
+			name = Debug;
+		};
+		6D612CFC2E30DF23004CCD39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.RekindleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rekindle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Rekindle";
+			};
+			name = Release;
+		};
+		6D612CFE2E30DF23004CCD39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.RekindleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rekindle;
+			};
+			name = Debug;
+		};
+		6D612CFF2E30DF23004CCD39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.RekindleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Rekindle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6D612CCC2E30DF20004CCD39 /* Build configuration list for PBXProject "Rekindle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D612CF52E30DF23004CCD39 /* Debug */,
+				6D612CF62E30DF23004CCD39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D612CF72E30DF23004CCD39 /* Build configuration list for PBXNativeTarget "Rekindle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D612CF82E30DF23004CCD39 /* Debug */,
+				6D612CF92E30DF23004CCD39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D612CFA2E30DF23004CCD39 /* Build configuration list for PBXNativeTarget "RekindleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D612CFB2E30DF23004CCD39 /* Debug */,
+				6D612CFC2E30DF23004CCD39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D612CFD2E30DF23004CCD39 /* Build configuration list for PBXNativeTarget "RekindleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D612CFE2E30DF23004CCD39 /* Debug */,
+				6D612CFF2E30DF23004CCD39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6D612D012E30DFBF004CCD39 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		6D612D032E30DFBF004CCD39 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		6D612D052E30DFBF004CCD39 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		6D612D072E30DFBF004CCD39 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 6D612CC92E30DF20004CCD39 /* Project object */;
+}
