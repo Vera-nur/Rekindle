@@ -4,7 +4,7 @@
     "" : {
 
     },
-    "Add Item" : {
+    "Ana Sayfa" : {
 
     },
     "Başla" : {
@@ -13,13 +13,10 @@
     "İleri" : {
 
     },
-    "Item at %@" : {
+    "Profil" : {
 
     },
     "Rekindle" : {
-
-    },
-    "Select an item" : {
 
     }
   },
