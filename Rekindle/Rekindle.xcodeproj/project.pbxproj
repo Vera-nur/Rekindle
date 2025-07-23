@@ -12,6 +12,7 @@
 		6D612D062E30DFBF004CCD39 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D052E30DFBF004CCD39 /* FirebaseMessaging */; };
 		6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D072E30DFBF004CCD39 /* FirebaseStorage */; };
 		6D612DAC2E30EB0D004CCD39 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612DAB2E30EB0D004CCD39 /* FirebaseDatabase */; };
+		6D612E282E310ED2004CCD39 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D612E272E310ED2004CCD39 /* RootView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,11 +36,25 @@
 		6D612CD12E30DF20004CCD39 /* Rekindle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rekindle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D612CE32E30DF23004CCD39 /* RekindleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RekindleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D612CED2E30DF23004CCD39 /* RekindleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RekindleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D612E272E310ED2004CCD39 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6D612E0D2E30EFA7004CCD39 /* Exceptions for "Rekindle" folder in "Rekindle" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6D612CD02E30DF20004CCD39 /* Rekindle */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6D612CD32E30DF21004CCD39 /* Rekindle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6D612E0D2E30EFA7004CCD39 /* Exceptions for "Rekindle" folder in "Rekindle" target */,
+			);
 			path = Rekindle;
 			sourceTree = "<group>";
 		};
@@ -88,6 +103,7 @@
 		6D612CC82E30DF20004CCD39 = {
 			isa = PBXGroup;
 			children = (
+				6D612E272E310ED2004CCD39 /* RootView.swift */,
 				6D612CD32E30DF21004CCD39 /* Rekindle */,
 				6D612CE62E30DF23004CCD39 /* RekindleTests */,
 				6D612CF02E30DF23004CCD39 /* RekindleUITests */,
@@ -258,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D612E282E310ED2004CCD39 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

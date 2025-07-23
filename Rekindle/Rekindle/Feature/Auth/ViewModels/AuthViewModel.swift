@@ -15,8 +15,11 @@ class AuthViewModel: ObservableObject {
     @Published var password = ""
     @Published var isAuthenticated = false
     @Published var errorMessage: String?
+    @Published var isLoading = true
+    @Published var hasSeenOnboarding: Bool = false
     
     init() {
+        hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
         observeAuthState()
     }
 
@@ -31,6 +34,26 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func checkAuthenticationStatus() {
+        isLoading = true
+        hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
+
+        if Auth.auth().currentUser != nil {
+            isAuthenticated = true
+        } else {
+            isAuthenticated = false
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            self.isLoading = false
+        }
+    }
+    
+    func markOnboardingAsSeen() {
+        hasSeenOnboarding = true
+        UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
     }
     
 
