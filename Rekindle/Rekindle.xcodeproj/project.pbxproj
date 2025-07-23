@@ -11,6 +11,7 @@
 		6D612D042E30DFBF004CCD39 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D032E30DFBF004CCD39 /* FirebaseFirestore */; };
 		6D612D062E30DFBF004CCD39 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D052E30DFBF004CCD39 /* FirebaseMessaging */; };
 		6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D072E30DFBF004CCD39 /* FirebaseStorage */; };
+		6D612DAC2E30EB0D004CCD39 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612DAB2E30EB0D004CCD39 /* FirebaseDatabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,22 +37,9 @@
 		6D612CED2E30DF23004CCD39 /* RekindleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RekindleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6D612D812E30E442004CCD39 /* Exceptions for "Rekindle" folder in "Rekindle" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 6D612CD02E30DF20004CCD39 /* Rekindle */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6D612CD32E30DF21004CCD39 /* Rekindle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				6D612D812E30E442004CCD39 /* Exceptions for "Rekindle" folder in "Rekindle" target */,
-			);
 			path = Rekindle;
 			sourceTree = "<group>";
 		};
@@ -72,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D612DAC2E30EB0D004CCD39 /* FirebaseDatabase in Frameworks */,
 				6D612D062E30DFBF004CCD39 /* FirebaseMessaging in Frameworks */,
 				6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */,
 				6D612D022E30DFBF004CCD39 /* FirebaseAuth in Frameworks */,
@@ -140,6 +129,7 @@
 				6D612D032E30DFBF004CCD39 /* FirebaseFirestore */,
 				6D612D052E30DFBF004CCD39 /* FirebaseMessaging */,
 				6D612D072E30DFBF004CCD39 /* FirebaseStorage */,
+				6D612DAB2E30EB0D004CCD39 /* FirebaseDatabase */,
 			);
 			productName = Rekindle;
 			productReference = 6D612CD12E30DF20004CCD39 /* Rekindle.app */;
@@ -618,6 +608,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		6D612DAB2E30EB0D004CCD39 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
