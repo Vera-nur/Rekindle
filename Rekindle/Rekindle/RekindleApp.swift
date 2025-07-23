@@ -22,11 +22,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct RekindleApp: App {
     let persistenceController = PersistenceController.shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var authViewModel = AuthViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            Group {
+                if authViewModel.isAuthenticated {
+                   ContentView()
+                        .environmentObject(authViewModel)
+                } else {
+                    LoginView()
+                        .environmentObject(authViewModel)
+                }
+            }
         }
     }
 }
