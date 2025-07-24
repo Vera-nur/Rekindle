@@ -5,7 +5,7 @@
 //  Created by Vera Nur on 14.07.2025.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var viewModel: UserProfileViewModel
@@ -45,6 +45,52 @@ struct ProfileView: View {
         .frame(maxWidth: 250)
         .sheet(isPresented: $isEditing){
             EditProfileView(viewModel: viewModel)
+        }
+    }
+}*/
+
+import SwiftUI
+import Kingfisher
+import FirebaseAuth
+
+struct ProfileView: View {
+    @State private var posts: [Post] = []
+
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 20) {
+                    ForEach(posts) { post in
+                        VStack(alignment: .leading, spacing: 8) {
+                            if let urlString = post.imageUrl, let url = URL(string: urlString) {
+                                        KFImage(url)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .cornerRadius(10)
+                                    } else {
+                                        Text("Görsel bulunamadı")
+                                            .foregroundColor(.gray)
+                                            .italic()
+                                    }
+
+                            Text(post.caption)
+                                .font(.body)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                    }
+                }
+                .padding()
+            }
+            .navigationTitle("Profilim")
+        }
+        .onAppear {
+            if let uid = Auth.auth().currentUser?.uid {
+                PostService.fetchUserPosts(userId: uid) { fetched in
+                    self.posts = fetched
+                }
+            }
         }
     }
 }
