@@ -51,58 +51,78 @@ struct ProfileView: View {
 
 import SwiftUI
 import Kingfisher
-import FirebaseAuth
 
 struct ProfileView: View {
-    @State private var posts: [Post] = []
+    @ObservedObject var viewModel: UserProfileViewModel
+
+    @State private var selectedTab = 0 // 0: Kendi anıları, 1: Beğenilenler
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 20) {
-                    ForEach(posts) { post in
-                        VStack(alignment: .leading, spacing: 8) {
-                            if let urlString = post.imageUrl, let url = URL(string: urlString) {
-                                        KFImage(url)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .cornerRadius(10)
-                                    } else {
-                                        Text("Görsel bulunamadı")
-                                            .foregroundColor(.gray)
-                                            .italic()
-                                    }
-
-                            if let caption = post.caption {
-                                Text(caption)
-                                    .font(.body)
-                            } else {
-                                Text("Açıklama yok.")
-                                    .foregroundColor(.gray)
-                                    .italic()
-                            }
-                        }
+        NavigationView{
+            VStack {
+                // Üst Kısım: Profil Fotoğrafı ve Kullanıcı Adı
+                HStack(alignment: .center, spacing: 16) {
+                    if let urlString = viewModel.profileImageUrl,
+                       let url = URL(string: urlString) {
+                        KFImage(url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+                    } else {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                            .foregroundColor(.gray)
+                    }
+                    
+                    Text(viewModel.username)
+                        .poppinsFont(size: 24, weight: .semibold)
+                }
+                .padding(.horizontal)
+                
+                // Profili Düzenle Butonu
+                NavigationLink(destination: EditProfileView()) {
+                    Text("Profili Düzenle")
+                        .poppinsFont(size: 16, weight: .medium)
+                        .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
+                        .background(Color(.systemGray5))
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
+                
+                // Alt Kısım: TabView
+                Picker("", selection: $selectedTab) {
+                    Text("Anılarım").tag(0)
+                    Text("Beğenilenler").tag(1)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
+                
+                if selectedTab == 0 {
+                    if let userId = viewModel.userId {
+                        UserPostGridView(userId: userId)
+                    } else {
+                        ProgressView()
+                    }
+                } else {
+                    if let userId = viewModel.userId {
+                        LikedPostGridView(userId: userId)
+                    } else {
+                        ProgressView()
                     }
                 }
-                .padding()
+                
+                Spacer()
             }
-            .navigationTitle("Profilim")
         }
+        .navigationTitle("Profil")
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            if let uid = Auth.auth().currentUser?.uid {
-                    PostService.fetchUserPosts(userId: uid) { fetched in
-                        print("Kaç post geldi: \(fetched.count)")
-                        for post in fetched {
-                            print("Post caption: \(post.caption)")
-                        }
-                        self.posts = fetched
-                    }
-                }
+            viewModel.fetchUserInfo()
         }
     }
 }
-
 

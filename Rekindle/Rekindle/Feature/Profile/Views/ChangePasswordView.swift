@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChangePasswordView: View {
     @ObservedObject var viewModel: UserProfileViewModel
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationStack {
@@ -33,14 +32,7 @@ struct ChangePasswordView: View {
                 }
             }
             .navigationTitle("Change Password".localized())
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel".localized()) {
-                        dismiss()
-                    }
-                    .poppinsFont(size: 16)
-                }
             }
         }
     }
-}
+

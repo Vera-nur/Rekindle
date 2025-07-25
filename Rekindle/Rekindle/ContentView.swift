@@ -58,7 +58,7 @@ struct ContentView: View {
                     Label("Gönderi", systemImage: "plus.circle")
                 }
 
-            ProfileView()
+            ProfileView(viewModel: profileVM)
                 .tabItem {
                     Label("Profil", systemImage: "person.circle")
                 }
@@ -66,4 +66,3 @@ struct ContentView: View {
     }
 }
 
-// NOT: SearchView ve NewPostView henüz oluşturulmadıysa basit placeholder'lar ile başlayabiliriz.

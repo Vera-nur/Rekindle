@@ -4,16 +4,28 @@
     "" : {
 
     },
+    "05xxxxxxxxx" : {
+
+    },
     "Açıklama ekle..." : {
 
     },
     "Açıklama yok." : {
 
     },
+    "Ad" : {
+
+    },
+    "Adınızı girin" : {
+
+    },
     "Ana Sayfa" : {
 
     },
     "Anasayfa" : {
+
+    },
+    "Anılarım" : {
 
     },
     "Ara" : {
@@ -23,6 +35,15 @@
 
     },
     "Beğen" : {
+
+    },
+    "Beğenilenler" : {
+
+    },
+    "Doğum Tarihi" : {
+
+    },
+    "Düzenlemeye Devam Et" : {
 
     },
     "Fotoğraf Seç" : {
@@ -43,16 +64,46 @@
     "İleri" : {
 
     },
+    "Kaydet" : {
+
+    },
+    "Kullanıcı Adı" : {
+
+    },
+    "Kullanıcı adı belirleyin" : {
+
+    },
     "Paylaş" : {
 
     },
     "Profil" : {
 
     },
-    "Profilim" : {
+    "Profil Fotoğrafını Değiştir" : {
+
+    },
+    "Profili Düzenle" : {
+
+    },
+    "Profiliniz başarıyla güncellendi!" : {
 
     },
     "Rekindle" : {
+
+    },
+    "Şifreyi Değiştir" : {
+
+    },
+    "Soyad" : {
+
+    },
+    "Soyadınızı girin" : {
+
+    },
+    "Tamam" : {
+
+    },
+    "Telefon Numarası" : {
 
     }
   },
