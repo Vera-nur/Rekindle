@@ -27,8 +27,14 @@ struct HomeView: View {
                                     .italic()
                             }
 
-                            Text(post.caption)
-                                .font(.body)
+                            if let caption = post.caption {
+                                Text(caption)
+                                    .font(.body)
+                            } else {
+                                Text("Açıklama yok.")
+                                    .foregroundColor(.gray)
+                                    .italic()
+                            }
 
                             HStack {
                                 Image(systemName: "heart")

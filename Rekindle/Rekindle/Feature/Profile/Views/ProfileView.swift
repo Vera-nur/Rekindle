@@ -73,8 +73,14 @@ struct ProfileView: View {
                                             .italic()
                                     }
 
-                            Text(post.caption)
-                                .font(.body)
+                            if let caption = post.caption {
+                                Text(caption)
+                                    .font(.body)
+                            } else {
+                                Text("Açıklama yok.")
+                                    .foregroundColor(.gray)
+                                    .italic()
+                            }
                         }
                         .padding()
                         .background(Color(.systemGray6))
@@ -87,10 +93,14 @@ struct ProfileView: View {
         }
         .onAppear {
             if let uid = Auth.auth().currentUser?.uid {
-                PostService.fetchUserPosts(userId: uid) { fetched in
-                    self.posts = fetched
+                    PostService.fetchUserPosts(userId: uid) { fetched in
+                        print("Kaç post geldi: \(fetched.count)")
+                        for post in fetched {
+                            print("Post caption: \(post.caption)")
+                        }
+                        self.posts = fetched
+                    }
                 }
-            }
         }
     }
 }

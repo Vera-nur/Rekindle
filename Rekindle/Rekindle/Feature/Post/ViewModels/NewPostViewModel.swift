@@ -25,7 +25,7 @@ class NewPostViewModel: ObservableObject {
         }
 
         let filename = UUID().uuidString
-        let storage = Storage.storage(url: "gs://iosmobile-e3c42.firebasestorage.app")
+        let storage = Storage.storage(url: "gs://iosmobile-e3c42.appspot.com")
         let storageRef = storage.reference().child("posts/\(filename).jpg")
 
         storageRef.putData(imageData, metadata: nil) { _, error in
