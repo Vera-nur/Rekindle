@@ -16,8 +16,20 @@ struct Post: Identifiable, Codable {
     var timestamp: Date?
     var userId: String?
     var isPublic: Bool?
-    
     var username: String?
     var isLiked: Bool? = false
+    var profileImageUrl: String?
 }
 
+
+extension Post {
+    static func fromDocument(data: [String: Any]) -> Post {
+        return Post(
+            id: nil,
+            imageUrl: data["imageUrl"] as? String,
+            caption: data["caption"] as? String,
+            username: data["username"] as? String,
+            profileImageUrl: data["profileImageUrl"] as? String
+        )
+    }
+}

@@ -28,15 +28,22 @@ class NewPostViewModel: ObservableObject {
         let storage = Storage.storage(url: "gs://iosmobile-e3c42.appspot.com")
         let storageRef = storage.reference().child("posts/\(filename).jpg")
 
-        storageRef.putData(imageData, metadata: nil) { _, error in
+        storageRef.putData(imageData, metadata: nil) { metadata, error in
             if let error = error {
-                print("Storage error: \(error)")
+                print("📦 Storage upload error: \(error.localizedDescription)")
                 completion(false)
                 return
             }
 
             storageRef.downloadURL { url, error in
+                if let error = error {
+                    print("🔗 URL fetch error: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+
                 guard let imageUrl = url?.absoluteString else {
+                    print("❌ Image URL is nil")
                     completion(false)
                     return
                 }
@@ -50,7 +57,13 @@ class NewPostViewModel: ObservableObject {
                 ]
 
                 Firestore.firestore().collection("posts").addDocument(data: postData) { error in
-                    completion(error == nil)
+                    if let error = error {
+                        print("📝 Firestore write error: \(error.localizedDescription)")
+                        completion(false)
+                    } else {
+                        print("✅ Post uploaded successfully.")
+                        completion(true)
+                    }
                 }
             }
         }
