@@ -15,6 +15,8 @@ struct EditProfileView: View {
     @State private var selectedItem: PhotosPickerItem?
     @State private var showSuccessAlert = false
     @Environment(\.dismiss) var dismiss
+    @AppStorage("didCompleteProfile") var didCompleteProfile: Bool = false
+    
 
     var body: some View {
         ScrollView {
@@ -109,6 +111,7 @@ struct EditProfileView: View {
                 Button(action: {
                     viewModel.updateProfile { success in
                         if success {
+                            didCompleteProfile = true
                             showSuccessAlert = true
                         } else {
                             print("Güncelleme başarısız.")

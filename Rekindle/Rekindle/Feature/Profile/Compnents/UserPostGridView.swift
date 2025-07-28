@@ -11,6 +11,7 @@ import Kingfisher
 struct UserPostGridView: View {
     let userId: String
     @StateObject private var viewModel = UserPostGridViewModel()
+    @State private var selectedPost: Post? = nil
 
     let columns = [
         GridItem(.flexible()),
@@ -22,18 +23,23 @@ struct UserPostGridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(viewModel.posts) { post in
-                    if let imageUrl = post.imageUrl, let url = URL(string: imageUrl) {
-                        KFImage(url)
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)
-                            .clipped()
-                            .cornerRadius(8)
-                    } else {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
-                            .aspectRatio(1, contentMode: .fill)
-                            .cornerRadius(8)
+                    Button(action: {
+                        selectedPost = post
+                    }) {
+                        if let imageUrl = post.imageUrl, let url = URL(string: imageUrl) {
+                            KFImage(url)
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fill)
+                                .clipped()
+                                .cornerRadius(8)
+                        } else {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.3))
+                                .aspectRatio(1, contentMode: .fill)
+                                .cornerRadius(8)
+                        }
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.horizontal)
@@ -41,5 +47,16 @@ struct UserPostGridView: View {
         .onAppear {
             viewModel.fetchPosts(for: userId)
         }
+        .background(
+            NavigationLink(
+                destination: selectedPost.map { PostDetailView(post: $0) },
+                isActive: Binding(
+                    get: { selectedPost != nil },
+                    set: { if !$0 { selectedPost = nil } }
+                )
+            ) {
+                EmptyView()
+            }
+        )
     }
 }

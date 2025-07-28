@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import Firebase
+import SwiftUI
 
 
 class AuthViewModel: ObservableObject {
@@ -17,6 +18,15 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = true
     @Published var hasSeenOnboarding: Bool = false
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @AppStorage("didCompleteProfile") var didCompleteProfile: Bool = false
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
+    @Published var birthDate: Date = Date()
+    @Published var phoneNumber: String = ""
+    @Published var registrationSuccess: Bool = false
+    @Published var didRegisterNewUser: Bool = false
+    @Published var showVerificationAlert: Bool = false
     
     init() {
         hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
@@ -62,7 +72,13 @@ class AuthViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    self.isAuthenticated = true
+                    if let user = Auth.auth().currentUser, user.isEmailVerified {
+                        self.isAuthenticated = true
+                        self.isLoggedIn = true
+                    } else {
+                        self.errorMessage = "Please verify your email before logging in."
+                        try? Auth.auth().signOut()
+                    }
                 case .failure(let error as NSError):
                     switch AuthErrorCode(rawValue: error.code) {
                     case .wrongPassword:
@@ -86,13 +102,57 @@ class AuthViewModel: ObservableObject {
     }
 
     func register() {
-        AuthManager.shared.register(email: email, password: password) { result in
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
             DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    self.isAuthenticated = true
-                case .failure(let error):
+                if let error = error {
                     self.errorMessage = error.localizedDescription
+                    return
+                }
+
+                guard let uid = result?.user.uid else {
+                    self.errorMessage = "User ID not found."
+                    return
+                }
+
+                // E-posta doğrulama
+                result?.user.sendEmailVerification(completion: { emailError in
+                    if let emailError = emailError {
+                        self.errorMessage = "Verification email could not be sent: \(emailError.localizedDescription)"
+                        return
+                    }
+
+                    self.errorMessage = "A verification email has been sent. Please verify your email before logging in."
+                    self.isAuthenticated = false
+                    self.isLoggedIn = false
+                    self.didRegisterNewUser = true
+                    self.showVerificationAlert = true
+                    self.didCompleteProfile = false
+
+                    self.saveUserInfo(uid: uid)
+                })
+            }
+        }
+    }
+    
+    private func saveUserInfo(uid: String) {
+        let ref = Database.database().reference()
+        let userInfo: [String: Any] = [
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "birthDate": ISO8601DateFormatter().string(from: birthDate),
+            "phoneNumber": phoneNumber
+        ]
+
+        ref.child("users").child(uid).setValue(userInfo) { error, _ in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.errorMessage = "Failed to save user info: \(error.localizedDescription)"
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.errorMessage = nil
+                    self.registrationSuccess = true
                 }
             }
         }
@@ -106,6 +166,8 @@ class AuthViewModel: ObservableObject {
                 self.password = ""
                 self.errorMessage = nil
                 self.isAuthenticated = false
+                self.isLoggedIn = false
+                self.didRegisterNewUser = false
             }
         } catch {
             DispatchQueue.main.async {

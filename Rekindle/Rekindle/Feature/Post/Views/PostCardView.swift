@@ -10,23 +10,27 @@ import Kingfisher
 
 struct PostCardView: View {
     let post: Post
+    var showMenu: Bool = false  // ✅ Yeni parametre
     @StateObject private var viewModel: PostCardViewModel
 
-    init(post: Post) {
+    @Environment(\.dismiss) private var dismiss
+
+    init(post: Post, showMenu: Bool = false) {
         self.post = post
+        self.showMenu = showMenu
         _viewModel = StateObject(wrappedValue: PostCardViewModel(postId: post.id ?? ""))
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Kullanıcı adı
+            // Kullanıcı adı + Menü
             HStack(spacing: 10) {
                 if let profileUrl = post.profileImageUrl, let url = URL(string: profileUrl) {
                     KFImage(url)
                         .resizable()
                         .scaledToFit()
-                    .frame(width: 36, height: 36)
-                    .clipShape(Circle())
+                        .frame(width: 36, height: 36)
+                        .clipShape(Circle())
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()
@@ -39,10 +43,32 @@ struct PostCardView: View {
                     .poppinsFont(size: 16, weight: .semibold)
 
                 Spacer()
+                
+                if showMenu {
+                    Menu {
+                        Button(role: .destructive) {
+                            viewModel.deletePost {
+                                dismiss()
+                            }
+                        } label: {
+                            Label("Sil", systemImage: "trash")
+                        }
+
+                        Button {
+                            // Düzenle özelliği sonra eklenecek
+                        } label: {
+                            Label("Düzenle", systemImage: "pencil")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .rotationEffect(.degrees(90))
+                            .padding(.horizontal)
+                    }
+                }
             }
             .padding(.horizontal)
-            
-            // Gönderi görseli
+
+            // Post görseli
             if let urlString = post.imageUrl, let url = URL(string: urlString) {
                 AsyncImage(url: url) { image in
                     image
@@ -53,7 +79,7 @@ struct PostCardView: View {
                     ProgressView()
                 }
             }
-            
+
             // Kalp butonu
             HStack {
                 Button(action: {
@@ -64,10 +90,11 @@ struct PostCardView: View {
                         .font(.title2)
                 }
             }
-                 .padding(.horizontal)
-            
+            .padding(.horizontal)
+
+            // Açıklama
             HStack(spacing: 6) {
-                Text(post.username ?? "Kullanıcı")
+                Text("\(post.username ?? "Kullanıcı"):")
                     .poppinsFont(size: 13, weight: .semibold)
                     .foregroundColor(.primary)
 
@@ -84,12 +111,10 @@ struct PostCardView: View {
                 Spacer()
             }
             .padding(.horizontal)
-            
-            }
-            .padding(.vertical)
-            .background(.ultraThinMaterial)
-            .cornerRadius(12)
-            .shadow(radius: 3)
         }
+        .padding(.vertical)
+        .background(.ultraThinMaterial)
+        .cornerRadius(12)
+        .shadow(radius: 3)
     }
-
+}

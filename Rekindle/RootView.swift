@@ -9,6 +9,9 @@ import SwiftUI
 
 struct RootView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @AppStorage("didCompleteProfile") var didCompleteProfile: Bool = false
+
 
     var body: some View {
         Group {
@@ -16,9 +19,11 @@ struct RootView: View {
                 SplashView()
             } else if !authViewModel.hasSeenOnboarding {
                 OnboardingView()
-            } else if !authViewModel.isAuthenticated {
+            } else if !isLoggedIn {
                 LoginView()
-            } else {
+            }else if !didCompleteProfile {
+                EditProfileView()
+            }else {
                 ContentView()
             }
         }

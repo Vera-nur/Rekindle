@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import FirebaseAuth
+import FirebaseStorage
 
 class PostCardViewModel: ObservableObject {
     @Published var isLiked: Bool = false
@@ -59,6 +60,50 @@ class PostCardViewModel: ObservableObject {
             likesRef.setData(data) { _ in
                 DispatchQueue.main.async {
                     self.isLiked = true
+                }
+            }
+        }
+    }
+    
+    func deletePost(completion: @escaping () -> Void) {
+        let db = Firestore.firestore()
+        let storage = Storage.storage()
+        let postRef = db.collection("posts").document(postId)
+
+        // Önce dökümanı al, imageUrl'yi bul
+        postRef.getDocument { snapshot, error in
+            guard let data = snapshot?.data(),
+                  let imageUrl = data["imageUrl"] as? String else {
+                print("⚠️ Post silinirken imageUrl alınamadı.")
+                // Yine de dökümanı sil
+                postRef.delete { error in
+                    if let error = error {
+                        print("❌ Post silinemedi: \(error.localizedDescription)")
+                    } else {
+                        print("✅ Post silindi (image alınamadı).")
+                        completion()
+                    }
+                }
+                return
+            }
+
+            // Resmi storage'dan sil
+            let storageRef = storage.reference(forURL: imageUrl)
+            storageRef.delete { error in
+                if let error = error {
+                    print("⚠️ Görsel silinemedi: \(error.localizedDescription)")
+                } else {
+                    print("🧹 Görsel başarıyla silindi.")
+                }
+
+                // Firestore dökümanını sil
+                postRef.delete { error in
+                    if let error = error {
+                        print("❌ Post silinemedi: \(error.localizedDescription)")
+                    } else {
+                        print("✅ Post başarıyla silindi.")
+                        completion()
+                    }
                 }
             }
         }

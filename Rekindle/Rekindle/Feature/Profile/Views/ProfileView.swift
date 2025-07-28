@@ -5,62 +5,22 @@
 //  Created by Vera Nur on 14.07.2025.
 //
 
-/*import SwiftUI
-
-struct ProfileView: View {
-    @ObservedObject var viewModel: UserProfileViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @Binding var isShowing: Bool
-    @State private var isEditing = false
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(viewModel.fullName)
-                    .poppinsFont(size: 18, weight: .semibold)
-                Text(viewModel.email)
-                    .poppinsFont(size: 14)
-                    .foregroundColor(.gray)
-            }
-            
-            Divider()
-            
-            Button("Edit Profile".localized()) {
-                isEditing = true
-            }
-            .foregroundColor(.blue)
-            .poppinsFont(size: 16, weight: .medium)
-            
-            Button("Logout".localized(), role: .destructive) {
-                authViewModel.logout()
-                isShowing = false
-                
-            }
-            .poppinsFont(size: 16, weight: .medium)
-        }
-        .padding()
-        .background(.ultraThinMaterial)
-        .cornerRadius(12)
-        .shadow(radius: 5)
-        .frame(maxWidth: 250)
-        .sheet(isPresented: $isEditing){
-            EditProfileView(viewModel: viewModel)
-        }
-    }
-}*/
-
 import SwiftUI
+import FirebaseAuth
 import Kingfisher
 
 struct ProfileView: View {
     @ObservedObject var viewModel: UserProfileViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel // ✅ EKLENDİ
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = true
 
-    @State private var selectedTab = 0 // 0: Kendi anıları, 1: Beğenilenler
+    @State private var selectedTab = 0
+    @State private var showLogoutAlert = false
 
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
-                // Üst Kısım: Profil Fotoğrafı ve Kullanıcı Adı
+                // Profil Fotoğrafı ve Kullanıcı Adı
                 HStack(alignment: .center, spacing: 16) {
                     if let urlString = viewModel.profileImageUrl,
                        let url = URL(string: urlString) {
@@ -76,12 +36,12 @@ struct ProfileView: View {
                             .frame(width: 80, height: 80)
                             .foregroundColor(.gray)
                     }
-                    
+
                     Text(viewModel.username)
                         .poppinsFont(size: 24, weight: .semibold)
                 }
                 .padding(.horizontal)
-                
+
                 // Profili Düzenle Butonu
                 NavigationLink(destination: EditProfileView()) {
                     Text("Profili Düzenle")
@@ -92,7 +52,7 @@ struct ProfileView: View {
                         .cornerRadius(10)
                         .padding(.horizontal)
                 }
-                
+
                 // Alt Kısım: TabView
                 Picker("", selection: $selectedTab) {
                     Text("Anılarım").tag(0)
@@ -100,7 +60,7 @@ struct ProfileView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)
-                
+
                 if selectedTab == 0 {
                     if let userId = viewModel.userId {
                         UserPostGridView(userId: userId)
@@ -114,15 +74,30 @@ struct ProfileView: View {
                         ProgressView()
                     }
                 }
-                
+
                 Spacer()
             }
-        }
-        .navigationTitle("Profil")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            viewModel.fetchUserInfo()
+            .navigationTitle("Profil")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showLogoutAlert = true
+                    }) {
+                        Image(systemName: "rectangle.portrait.and.arrow.forward")
+                            .foregroundColor(.red)
+                    }
+                }
+            }
+            .alert("Çıkış yapmak istiyor musunuz?", isPresented: $showLogoutAlert) {
+                Button("Evet", role: .destructive) {
+                    authViewModel.logout() // ✅ DEĞİŞTİRİLDİ
+                }
+                Button("Hayır", role: .cancel) {}
+            }
+            .onAppear {
+                viewModel.fetchUserInfo()
+            }
         }
     }
 }
-

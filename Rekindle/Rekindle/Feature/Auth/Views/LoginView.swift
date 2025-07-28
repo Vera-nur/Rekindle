@@ -66,11 +66,8 @@ struct LoginView: View {
                 .environmentObject(viewModel)
         }
         .sheet(isPresented: $isShowingRegister) {
-            RegisterView()
+            RegisterView().environmentObject(viewModel)
         }
     }
 }
 
-#Preview {
-    LoginView()
-}

@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseStorage
 import PhotosUI
 import Firebase
+import FirebaseDatabase
 
 class NewPostViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
@@ -25,7 +26,7 @@ class NewPostViewModel: ObservableObject {
         }
 
         let filename = UUID().uuidString
-        let storage = Storage.storage(url: "gs://iosmobile-e3c42.appspot.com")
+        let storage = Storage.storage(url: "gs://iosmobile-e3c42.firebasestorage.app")
         let storageRef = storage.reference().child("posts/\(filename).jpg")
 
         storageRef.putData(imageData, metadata: nil) { metadata, error in
@@ -48,21 +49,39 @@ class NewPostViewModel: ObservableObject {
                     return
                 }
 
-                let postData: [String: Any] = [
-                    "imageUrl": imageUrl,
-                    "caption": self.caption,
-                    "timestamp": Timestamp(),
-                    "userId": userId,
-                    "isPublic": self.isPublic
-                ]
+                // ✅ KULLANICI BİLGİLERİNİ ÇEK
+                let ref = Database.database().reference()
+                let userRef = ref.child("users").child(userId)
 
-                Firestore.firestore().collection("posts").addDocument(data: postData) { error in
-                    if let error = error {
-                        print("📝 Firestore write error: \(error.localizedDescription)")
+                userRef.observeSingleEvent(of: .value) { snapshot in
+                    guard let data = snapshot.value as? [String: Any] else {
+                        print("❌ Kullanıcı bilgisi alınamadı (Realtime Database).")
                         completion(false)
-                    } else {
-                        print("✅ Post uploaded successfully.")
-                        completion(true)
+                        return
+                    }
+
+                    let username = data["username"] as? String ?? "Bilinmeyen"
+                    let profileImageUrl = data["profileImageUrl"] as? String ?? ""
+
+                    // 🔥 POST VERİSİ
+                    let postData: [String: Any] = [
+                        "imageUrl": imageUrl,
+                        "caption": self.caption,
+                        "timestamp": Timestamp(),
+                        "userId": userId,
+                        "isPublic": self.isPublic,
+                        "username": username,
+                        "profileImageUrl": profileImageUrl
+                    ]
+
+                    Firestore.firestore().collection("posts").addDocument(data: postData) { error in
+                        if let error = error {
+                            print("📝 Firestore yazım hatası: \(error.localizedDescription)")
+                            completion(false)
+                        } else {
+                            print("✅ Gönderi başarıyla yüklendi.")
+                            completion(true)
+                        }
                     }
                 }
             }

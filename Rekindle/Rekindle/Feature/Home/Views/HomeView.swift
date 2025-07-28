@@ -15,7 +15,7 @@ struct HomeView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     ForEach(posts) { post in
-                        PostCardView(post: post)
+                        PostCardView(post: post, showMenu: false)
                     }
                 }
                 .padding()
