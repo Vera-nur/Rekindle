@@ -106,6 +106,13 @@ struct PostCardView: View {
                 Spacer()
             }
             .padding(.horizontal)
+            
+            if let date = post.timestamp {
+                Text(date.formatted(date: .abbreviated, time: .omitted)) 
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
+            }
         }
         .padding(.vertical)
         .background(.ultraThinMaterial)
