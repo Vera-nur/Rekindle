@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct OnboardingPage: Identifiable {
     let id = UUID()
     let title: String
     let subtitle: String
     let imageName: String
+    let backgroundColor: Color
 }

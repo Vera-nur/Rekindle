@@ -6,16 +6,28 @@
 //
 
 import Foundation
+import SwiftUI
 
 class OnboardingViewModel: ObservableObject {
     @Published var currentPage = 0
 
     let pages = [
-        OnboardingPage(title: "Anılarını Sakla", subtitle: "Özel anılarını güvenle kaydet.", imageName: "memory_icon"),
-        OnboardingPage(title: "Kolayca Düzenle", subtitle: "Kategorilere ayır, notlar ekle.", imageName: "organize_icon"),
-        OnboardingPage(title: "Yıllar Sonra Hatırla", subtitle: "Geçmişe bir pencere aç.", imageName: "recall_icon")
+        OnboardingPage(title: "Anılarını Sakla",
+                       subtitle: "Özel anılarını güvenle kaydet.",
+                       imageName: "memory_icon",
+                       backgroundColor: Color("OnboardingBlue")),
+        
+        OnboardingPage(title: "Kolayca Düzenle",
+                       subtitle: "Kategorilere ayır, notlar ekle.",
+                       imageName: "organize_icon",
+                       backgroundColor: Color("OnboardingPurple")),
+        
+        OnboardingPage(title: "Yıllar Sonra Hatırla",
+                       subtitle: "Geçmişe bir pencere aç.",
+                       imageName: "recall_icon",
+                       backgroundColor: Color("OnboardingPeach"))
     ]
-
+    
     var isLastPage: Bool {
         return currentPage == pages.count - 1
     }
