@@ -8,13 +8,13 @@ import SwiftUI
 import Kingfisher
 
 struct HomeView: View {
-    @State private var posts: [Post] = []
+    @StateObject private var viewModel = HomeViewModel()
 
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
-                    ForEach(posts) { post in
+                    ForEach(viewModel.posts) { post in
                         PostCardView(post: post, showMenu: false)
                     }
                 }
@@ -23,9 +23,9 @@ struct HomeView: View {
             .navigationTitle("Anasayfa")
         }
         .onAppear {
-            PostService.fetchPublicPosts { fetched in
-                self.posts = fetched
-            }
+            
+            
+            viewModel.loadPosts()
         }
     }
 }

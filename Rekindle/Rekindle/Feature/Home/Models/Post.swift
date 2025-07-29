@@ -21,7 +21,7 @@ struct Post: Identifiable, Codable {
     var profileImageUrl: String?
 }
 
-
+//Buraya bakkk 
 extension Post {
     static func fromDocument(data: [String: Any]) -> Post {
         return Post(

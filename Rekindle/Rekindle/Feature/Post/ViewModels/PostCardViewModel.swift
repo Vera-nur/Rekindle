@@ -46,14 +46,12 @@ class PostCardViewModel: ObservableObject {
             .document(userId)
 
         if isLiked {
-            // Beğeniyi kaldır
             likesRef.delete { _ in
                 DispatchQueue.main.async {
                     self.isLiked = false
                 }
             }
         } else {
-            // Beğeniyi ekle
             let data: [String: Any] = [
                 "likedAt": Timestamp()
             ]
@@ -70,12 +68,11 @@ class PostCardViewModel: ObservableObject {
         let storage = Storage.storage()
         let postRef = db.collection("posts").document(postId)
 
-        // Önce dökümanı al, imageUrl'yi bul
         postRef.getDocument { snapshot, error in
             guard let data = snapshot?.data(),
                   let imageUrl = data["imageUrl"] as? String else {
                 print("⚠️ Post silinirken imageUrl alınamadı.")
-                // Yine de dökümanı sil
+
                 postRef.delete { error in
                     if let error = error {
                         print("❌ Post silinemedi: \(error.localizedDescription)")
@@ -87,7 +84,6 @@ class PostCardViewModel: ObservableObject {
                 return
             }
 
-            // Resmi storage'dan sil
             let storageRef = storage.reference(forURL: imageUrl)
             storageRef.delete { error in
                 if let error = error {
@@ -96,7 +92,6 @@ class PostCardViewModel: ObservableObject {
                     print("🧹 Görsel başarıyla silindi.")
                 }
 
-                // Firestore dökümanını sil
                 postRef.delete { error in
                     if let error = error {
                         print("❌ Post silinemedi: \(error.localizedDescription)")

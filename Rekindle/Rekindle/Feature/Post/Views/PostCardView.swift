@@ -10,7 +10,7 @@ import Kingfisher
 
 struct PostCardView: View {
     let post: Post
-    var showMenu: Bool = false  // ✅ Yeni parametre
+    var showMenu: Bool = false
     @StateObject private var viewModel: PostCardViewModel
 
     @Environment(\.dismiss) private var dismiss
@@ -23,7 +23,6 @@ struct PostCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Kullanıcı adı + Menü
             HStack(spacing: 10) {
                 if let profileUrl = post.profileImageUrl, let url = URL(string: profileUrl) {
                     KFImage(url)
@@ -55,7 +54,6 @@ struct PostCardView: View {
                         }
 
                         Button {
-                            // Düzenle özelliği sonra eklenecek
                         } label: {
                             Label("Düzenle", systemImage: "pencil")
                         }
@@ -70,14 +68,11 @@ struct PostCardView: View {
 
             // Post görseli
             if let urlString = post.imageUrl, let url = URL(string: urlString) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(10)
-                } placeholder: {
-                    ProgressView()
-                }
+                KFImage(url)
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(10)
+                    .padding(.horizontal)
             }
 
             // Kalp butonu
