@@ -18,8 +18,14 @@ class PostCardViewModel: ObservableObject {
 
     init(postId: String) {
         self.postId = postId
-        self.userId = Auth.auth().currentUser?.uid ?? ""
-        checkIfLiked()
+
+        if let uid = Auth.auth().currentUser?.uid {
+            self.userId = uid
+            checkIfLiked()
+        } else {
+            self.userId = ""
+            print("⚠️ Giriş yapmamış kullanıcı. PostCardViewModel başlatılmadı.")
+        }
     }
 
     func checkIfLiked() {

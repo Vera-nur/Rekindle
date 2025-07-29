@@ -37,7 +37,7 @@ struct SplashView: View {
                         .padding(.top, 20)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white)
+                .background(Color("OnboardingPeach"))
             }
         }
     }

@@ -20,7 +20,8 @@ struct CustomTextField: View {
 
             TextField("", text: $text)
                 .padding(12)
-                .background(Color.white)
+                .background(Color(red: 1.0, green: 0.97, blue: 0.90))
+                .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3)))
                 .keyboardType(keyboardType)
                 .autocapitalization(.none)
@@ -37,11 +38,13 @@ struct SecureInputField: View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.subheadline)
-                .foregroundColor(.gray)
+                .foregroundColor(.gray.opacity(0.7))
+
             SecureField(title, text: $text)
                 .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(8)
+                .background(Color(red: 1.0, green: 0.97, blue: 0.90))
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3)))
         }
     }
 }
