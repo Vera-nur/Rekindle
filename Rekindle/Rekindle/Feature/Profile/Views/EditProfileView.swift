@@ -16,6 +16,7 @@ struct EditProfileView: View {
     @State private var showSuccessAlert = false
     @Environment(\.dismiss) var dismiss
     @AppStorage("didCompleteProfile") var didCompleteProfile: Bool = false
+    @State private var isSaving = false
     
     
     init() {
@@ -114,7 +115,9 @@ struct EditProfileView: View {
 
                 // Kaydet Butonu
                 Button(action: {
+                    isSaving = true
                     viewModel.updateProfile { success in
+                        isSaving = false
                         if success {
                             didCompleteProfile = true
                             showSuccessAlert = true
@@ -123,14 +126,29 @@ struct EditProfileView: View {
                         }
                     }
                 }) {
-                    Text("Kaydet")
-                        .poppinsFont(size: 16, weight: .semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    if isSaving{
+                        HStack{
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            Text("Kaydediliyor...")
+                                .poppinsFont(size: 16, weight: .semibold)
+                        }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("OnboardingBlue"))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }else{
+                        Text("Kaydet")
+                            .poppinsFont(size: 16, weight: .semibold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
+                .disabled(isSaving)
                 
                 // Şifreyi Değiştir Butonu
                 NavigationLink(destination: ChangePasswordView(viewModel: viewModel)) {
