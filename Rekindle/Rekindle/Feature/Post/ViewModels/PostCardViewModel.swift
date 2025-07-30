@@ -109,4 +109,14 @@ class PostCardViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    func updateCaption(_ newCaption: String, completion: @escaping (Bool) -> Void) {
+        let postRef = Firestore.firestore().collection("posts").document(postId)
+        postRef.updateData(["caption": newCaption]) { error in
+            DispatchQueue.main.async {
+                completion(error == nil)
+            }
+        }
+    }
 }
