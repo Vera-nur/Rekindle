@@ -15,9 +15,6 @@ struct RegisterView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack{
-                Color("OnboardingPeach")
-                    .ignoresSafeArea()
                 VStack(spacing: 20) {
                     Text("Create Your Account".localized())
                         .poppinsFont(size: 20, weight: .semibold)
@@ -96,7 +93,6 @@ struct RegisterView: View {
                 } message: {
                     Text("A verification email has been sent to your address. Please verify before logging in.")
                 }
-            }
         }
     }
 }

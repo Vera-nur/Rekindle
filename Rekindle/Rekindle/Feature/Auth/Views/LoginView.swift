@@ -13,10 +13,6 @@ struct LoginView: View {
     @State private var isShowingResetPassword = false
 
     var body: some View {
-        ZStack{
-            Color("OnboardingPeach")
-                .ignoresSafeArea()
-            
             VStack(spacing: 20) {
                 
                 Text("Welcome".localized())
@@ -73,7 +69,6 @@ struct LoginView: View {
             .sheet(isPresented: $isShowingRegister) {
                 RegisterView().environmentObject(viewModel)
             }
-        }
     }
 }
 
