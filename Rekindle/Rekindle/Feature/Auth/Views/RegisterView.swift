@@ -15,84 +15,84 @@ struct RegisterView: View {
 
     var body: some View {
         NavigationStack {
-                VStack(spacing: 20) {
-                    Text("Create Your Account".localized())
-                        .poppinsFont(size: 20, weight: .semibold)
-                        .foregroundColor(.white)
-                        .padding(.top, 40)
-                    
-                    VStack(spacing: 15) {
-                        Group {
+            ZStack {
+                Color(.systemGray6).ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 30) {
+                        // Başlık
+                        Text("Create Your Account".localized())
+                            .poppinsFont(size: 26, weight: .bold)
+                            .foregroundColor(Color("Blue"))
+                            .padding(.top, 40)
+
+                        // Form
+                        VStack(spacing: 20) {
                             CustomTextField(title: "First Name".localized(), text: $viewModel.firstName)
                             CustomTextField(title: "Last Name".localized(), text: $viewModel.lastName)
-                            
-                            VStack(alignment: .leading, spacing: 5) {
+
+                            VStack(alignment: .leading, spacing: 6) {
                                 Text("Birth Date".localized())
-                                    .poppinsFont(size: 14)
-                                    .foregroundColor(.gray)
+                                    .font(.caption)
+                                    .foregroundColor(Color.black.opacity(0.85))
                                 DatePicker("", selection: $viewModel.birthDate, displayedComponents: .date)
-                                    .datePickerStyle(.compact)
                                     .labelsHidden()
+                                    .datePickerStyle(.compact)
                                     .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color(.systemGray5))
+                                    .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.gray.opacity(0.4), lineWidth: 1.2)
+                                    )
                             }
-                            
+
                             CustomTextField(title: "Phone Number".localized(), text: $viewModel.phoneNumber, keyboardType: .phonePad)
                             CustomTextField(title: "Email".localized(), text: $viewModel.email, keyboardType: .emailAddress)
                             SecureInputField(title: "Password".localized(), text: $viewModel.password)
+
+                            if let error = viewModel.errorMessage {
+                                Text(error)
+                                    .foregroundColor(.red)
+                                    .poppinsFont(size: 12)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.top, 5)
+                            }
                         }
-                        
-                        if let error = viewModel.errorMessage {
-                            Text(error)
-                                .foregroundColor(.red)
-                                .poppinsFont(size: 12)
-                                .multilineTextAlignment(.center)
-                                .padding(.top, 5)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(16)
+                        .shadow(color: .gray.opacity(0.1), radius: 10, x: 0, y: 5)
+                        .padding(.horizontal)
+
+                        // Register Butonu
+                        Button(action: {
+                            viewModel.register()
+                        }) {
+                            Text("Register".localized())
+                                .poppinsFont(size: 16, weight: .semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color("Blue"))
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                                .shadow(color: Color("Blue").opacity(0.3), radius: 5, x: 0, y: 5)
                         }
-                    }
-                    .padding()
-                    .background(Color("OnboardingPeach"))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                    
-                    Button(action: {
-                        viewModel.register()
-                    }) {
-                        Text("Register".localized())
-                            .poppinsFont(size: 16, weight: .semibold)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color("OnboardingBlue"))
-                            .cornerRadius(8)
-                    }
-                    .padding(.horizontal)
-                    
-                    Button("Back to Login".localized()) {
-                        dismiss()
-                    }
-                    .poppinsFont(size: 12)
-                    .foregroundColor(.white)
-                    .padding(.top, 5)
-                    
-                    Spacer()
-                }
-                .onChange(of: viewModel.registrationSuccess) {
-                    if viewModel.registrationSuccess {
-                        navigateToEditProfile = true
+                        .padding(.horizontal)
+
+                        // Geri Dön
+                        Button("Back to Login".localized()) {
+                            dismiss()
+                        }
+                        .poppinsFont(size: 12)
+                        .foregroundColor(Color("Blue"))
+                        .padding(.top, 5)
+
+                        Spacer()
                     }
                 }
-                NavigationLink(value: "editProfile") {
-                    EmptyView()
-                }
-                .navigationDestination(for: String.self) { value in
-                    if value == "editProfile" {
-                        EditProfileView()
-                    }
-                }.alert("Verification Email Sent", isPresented: $viewModel.showVerificationAlert) {
-                    Button("OK", role: .cancel) { }
-                } message: {
-                    Text("A verification email has been sent to your address. Please verify before logging in.")
-                }
+            }
         }
     }
 }

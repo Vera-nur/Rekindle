@@ -35,7 +35,7 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color("OnboardingBlue"))
+                        .background(Color("Blue"))
                         .cornerRadius(10)
                 }
                 
@@ -44,7 +44,7 @@ struct LoginView: View {
                     isShowingResetPassword = true
                 }
                 .poppinsFont(size: 12)
-                .foregroundColor(.white)
+                .foregroundColor(Color("Blue"))
                 .sheet(isPresented: $isShowingResetPassword) {
                     ForgotPasswordView()
                         .presentationDetents([.fraction(0.35)])
@@ -57,7 +57,7 @@ struct LoginView: View {
                 }
                 .poppinsFont(size: 12)
                 .padding(.top, 5)
-                .foregroundColor(.white)
+                .foregroundColor(Color("Blue"))
                 
                 Spacer()
             }
