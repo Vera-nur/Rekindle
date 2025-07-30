@@ -11,11 +11,12 @@ import Kingfisher
 
 struct ProfileView: View {
     @ObservedObject var viewModel: UserProfileViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel // ✅ EKLENDİ
+    @EnvironmentObject var authViewModel: AuthViewModel
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = true
 
     @State private var selectedTab = 0
     @State private var showLogoutAlert = false
+    var isCurrentUser: Bool
 
     var body: some View {
         NavigationView {
@@ -42,21 +43,25 @@ struct ProfileView: View {
                 }
                 .padding(.horizontal)
 
-                // Profili Düzenle Butonu
-                NavigationLink(destination: EditProfileView()) {
-                    Text("Profili Düzenle")
-                        .poppinsFont(size: 16, weight: .medium)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(.systemGray5))
-                        .cornerRadius(10)
-                        .padding(.horizontal)
+                // 🔒 Sadece kendi profilinde görünür
+                if isCurrentUser {
+                    NavigationLink(destination: EditProfileView()) {
+                        Text("Profili Düzenle")
+                            .poppinsFont(size: 16, weight: .medium)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color(.systemGray5))
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
                 }
 
-                // Alt Kısım: TabView
+                // Sekme: Anılar (ve Beğenilenler sadece kendi profilinde)
                 Picker("", selection: $selectedTab) {
                     Text("Anılarım").tag(0)
-                    Text("Beğenilenler").tag(1)
+                    if isCurrentUser {
+                        Text("Beğenilenler").tag(1)
+                    }
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)
@@ -67,7 +72,7 @@ struct ProfileView: View {
                     } else {
                         ProgressView()
                     }
-                } else {
+                } else if isCurrentUser && selectedTab == 1 {
                     if let userId = viewModel.userId {
                         LikedPostGridView(userId: userId)
                     } else {
@@ -80,18 +85,20 @@ struct ProfileView: View {
             .navigationTitle("Profil")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showLogoutAlert = true
-                    }) {
-                        Image(systemName: "rectangle.portrait.and.arrow.forward")
-                            .foregroundColor(.red)
+                if isCurrentUser {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showLogoutAlert = true
+                        }) {
+                            Image(systemName: "rectangle.portrait.and.arrow.forward")
+                                .foregroundColor(.red)
+                        }
                     }
                 }
             }
             .alert("Çıkış yapmak istiyor musunuz?", isPresented: $showLogoutAlert) {
                 Button("Evet", role: .destructive) {
-                    authViewModel.logout() // ✅ DEĞİŞTİRİLDİ
+                    authViewModel.logout()
                 }
                 Button("Hayır", role: .cancel) {}
             }

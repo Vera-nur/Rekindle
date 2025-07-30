@@ -28,16 +28,15 @@ class UserProfileViewModel: ObservableObject {
     @Published var confirmPassword: String = ""
     @Published var passwordChangeMessage: String = ""
     
-    init() {
+    init(userId: String) {
+        self.userId = userId
         fetchUserInfo()
     }
 
     func fetchUserInfo() {
-        guard let user = Auth.auth().currentUser else { return }
-        self.userId = user.uid
-        self.email = user.email ?? ""
-        
-        let ref = Database.database().reference().child("users").child(user.uid)
+        guard let userId = self.userId else { return }
+
+        let ref = Database.database().reference().child("users").child(userId)
         ref.observeSingleEvent(of: .value) { snapshot in
             guard let data = snapshot.value as? [String: Any] else { return }
 

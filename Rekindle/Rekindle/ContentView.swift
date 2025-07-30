@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    //@Environment(\.managedObjectContext) private var viewContext
-    
-    @StateObject private var profileVM = UserProfileViewModel()
+    @StateObject private var profileVM: UserProfileViewModel
     @State private var isShowingProfile = true
+    
+    init() {
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        _profileVM = StateObject(wrappedValue: UserProfileViewModel(userId: uid))
+    }
 
     var body: some View {
         TabView {
@@ -20,9 +24,12 @@ struct ContentView: View {
                 .tabItem {
                     Label("Ana Sayfa", systemImage: "house")
                 }
+            
 
-            SearchView()
-                .tabItem {
+            NavigationView {
+                SearchView()
+            }
+            .tabItem {
                     Label("Ara", systemImage: "magnifyingglass")
                 }
 
@@ -31,7 +38,7 @@ struct ContentView: View {
                     Label("Gönderi", systemImage: "plus.circle")
                 }
 
-            ProfileView(viewModel: profileVM)
+            ProfileView(viewModel: profileVM, isCurrentUser: true)
                 .environmentObject(authViewModel)
                 .tabItem {
                     Label("Profil", systemImage: "person.circle")

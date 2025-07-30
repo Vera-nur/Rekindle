@@ -4,18 +4,24 @@
 //
 //  Created by Vera Nur on 16.07.2025.
 //
-
-
 import SwiftUI
 import PhotosUI
+import FirebaseAuth
+import Kingfisher
 
 struct EditProfileView: View {
-    @StateObject private var viewModel = UserProfileViewModel()
+    @StateObject private var viewModel: UserProfileViewModel
     @State private var showImagePicker = false
     @State private var selectedItem: PhotosPickerItem?
     @State private var showSuccessAlert = false
     @Environment(\.dismiss) var dismiss
     @AppStorage("didCompleteProfile") var didCompleteProfile: Bool = false
+    
+    
+    init() {
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        _viewModel = StateObject(wrappedValue: UserProfileViewModel(userId: uid))
+    }
     
 
     var body: some View {
@@ -32,16 +38,15 @@ struct EditProfileView: View {
                             .clipShape(Circle())
                             .shadow(radius: 5)
                     } else if let imageUrl = viewModel.profileImageUrl, let url = URL(string: imageUrl) {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 120, height: 120)
-                        .clipShape(Circle())
-                        .shadow(radius: 5)
+                        KFImage(url)
+                            .placeholder {
+                                ProgressView()
+                            }
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 120, height: 120)
+                            .clipShape(Circle())
+                            .shadow(radius: 5)
                     } else {
                         Image(systemName: "person.circle.fill")
                             .resizable()

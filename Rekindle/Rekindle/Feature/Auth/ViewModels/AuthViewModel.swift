@@ -27,6 +27,7 @@ class AuthViewModel: ObservableObject {
     @Published var registrationSuccess: Bool = false
     @Published var didRegisterNewUser: Bool = false
     @Published var showVerificationAlert: Bool = false
+    @Published var currentUserId: String? = Auth.auth().currentUser?.uid
     
     init() {
         hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
@@ -38,6 +39,7 @@ class AuthViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let user = user {
                     self.email = user.email ?? ""
+                    self.currentUserId = user.uid 
                     self.isAuthenticated = true
                 } else {
                     self.isAuthenticated = false
