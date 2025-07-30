@@ -16,13 +16,16 @@ struct CustomTextField: View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
                 .font(.caption)
-                .foregroundColor(.gray.opacity(0.7))
+                .foregroundColor(Color.black.opacity(0.85))
 
             TextField("", text: $text)
-                .padding(12)
-                .background(Color(red: 1.0, green: 0.97, blue: 0.90))
+                .padding()
+                .background(Color(.systemGray5))
                 .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3)))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.4), lineWidth: 1.2)
+                )
                 .keyboardType(keyboardType)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
@@ -37,14 +40,17 @@ struct SecureInputField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
-                .font(.subheadline)
-                .foregroundColor(.gray.opacity(0.7))
+                .font(.caption)
+                .foregroundColor(Color.black.opacity(0.85))
 
-            SecureField(title, text: $text)
+            SecureField("", text: $text)
                 .padding()
-                .background(Color(red: 1.0, green: 0.97, blue: 0.90))
+                .background(Color(.systemGray5))
                 .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3)))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.4), lineWidth: 1.2)
+                )
         }
     }
 }
