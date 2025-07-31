@@ -6,13 +6,24 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PostImageView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    let imageUrl: String?
 
-#Preview {
-    PostImageView()
+    var body: some View {
+        if let imageUrl = imageUrl,
+           let url = URL(string: imageUrl) {
+            KFImage(url)
+                .resizable()
+                .aspectRatio(1, contentMode: .fill)
+                .clipped()
+                .cornerRadius(8)
+        } else {
+            Rectangle()
+                .fill(Color.gray.opacity(0.3))
+                .aspectRatio(1, contentMode: .fill)
+                .cornerRadius(8)
+        }
+    }
 }

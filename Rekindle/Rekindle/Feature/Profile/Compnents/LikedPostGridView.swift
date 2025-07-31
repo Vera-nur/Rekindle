@@ -26,18 +26,7 @@ struct LikedPostGridView: View {
                     Button(action: {
                         selectedPost = post
                     }) {
-                        if let imageUrl = post.imageUrl, let url = URL(string: imageUrl) {
-                            KFImage(url)
-                                .resizable()
-                                .aspectRatio(1, contentMode: .fill)
-                                .clipped()
-                                .cornerRadius(8)
-                        } else {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.3))
-                                .aspectRatio(1, contentMode: .fill)
-                                .cornerRadius(8)
-                        }
+                        PostImageView(imageUrl: post.imageUrl)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
