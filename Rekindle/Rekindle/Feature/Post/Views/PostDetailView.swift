@@ -13,8 +13,9 @@ struct PostDetailView: View {
     var body: some View {
         ScrollView {
             PostCardView(post: post, showMenu: true)
+                .padding()
         }
-        .navigationTitle("Gönderi Detayı")
+        .navigationTitle("Gönderi Detayı".localized())
         .navigationBarTitleDisplayMode(.inline)
     }
 }

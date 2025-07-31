@@ -13,62 +13,72 @@ struct LoginView: View {
     @State private var isShowingResetPassword = false
 
     var body: some View {
-            VStack(spacing: 20) {
-                
-                Text("Welcome".localized())
-                    .poppinsFont(size: 24, weight: .semibold)
-                
-                CustomTextField(title: "Email".localized(), text: $viewModel.email, keyboardType: .emailAddress)
-                SecureInputField(title: "Password".localized(), text: $viewModel.password)
-                
-                if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .poppinsFont(size: 12)
-                }
-                
-                Button(action: {
+        VStack(spacing: 20) {
+            
+            Text("Welcome".localized())
+                .poppinsFont(size: 24, weight: .semibold)
+            
+            AppTextField(
+                title: "Email".localized(),
+                placeholder: "you@example.com",
+                text: $viewModel.email,
+                keyboardType: .emailAddress,
+                icon: "envelope"
+            )
+            
+            AppTextField(
+                title: "Password".localized(),
+                placeholder: "••••••••",
+                text: $viewModel.password,
+                isSecure: true,
+                icon: "lock"
+            )
+            
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(AppTheme.Colors.error)
+                    .poppinsFont(size: 12)
+            }
+
+            PrimaryButton(
+                title: "Login".localized(),
+                action: {
                     viewModel.login()
-                }) {
-                    Text("Login".localized())
-                        .poppinsFont(size: 16, weight: .semibold)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color("Blue"))
-                        .cornerRadius(10)
-                }
-                
-                
-                Button("Forgot password?".localized()) {
+                },
+                backgroundColor: AppTheme.Colors.primary
+            )
+            
+            SecondaryButton(
+                title: "Forgot password?".localized(),
+                action: {
                     isShowingResetPassword = true
                 }
-                .poppinsFont(size: 12)
-                .foregroundColor(Color("Blue"))
-                .sheet(isPresented: $isShowingResetPassword) {
-                    ForgotPasswordView()
-                        .presentationDetents([.fraction(0.35)])
-                        .presentationDragIndicator(.visible)
-                }
-                
-                
-                Button("Don't have an account? Register".localized()) {
+            )
+            .sheet(isPresented: $isShowingResetPassword) {
+                ForgotPasswordView()
+                    .presentationDetents([.fraction(0.35)])
+                    .presentationDragIndicator(.visible)
+            }
+
+            
+            SecondaryButton(
+                title: "Don't have an account? Register".localized(),
+                action: {
                     isShowingRegister = true
-                }
-                .poppinsFont(size: 12)
-                .padding(.top, 5)
-                .foregroundColor(Color("Blue"))
-                
-                Spacer()
-            }
-            .padding()
-            .fullScreenCover(isPresented: $viewModel.isAuthenticated) {
-                ContentView()
-                    .environmentObject(viewModel)
-            }
-            .sheet(isPresented: $isShowingRegister) {
-                RegisterView().environmentObject(viewModel)
-            }
+                },
+                topPadding: 5
+            )
+            
+            Spacer()
+        }
+        .padding()
+        .fullScreenCover(isPresented: $viewModel.isAuthenticated) {
+            ContentView()
+                .environmentObject(viewModel)
+        }
+        .sheet(isPresented: $isShowingRegister) {
+            RegisterView()
+                .environmentObject(viewModel)
+        }
     }
 }
-

@@ -11,28 +11,58 @@ struct ChangePasswordView: View {
     @ObservedObject var viewModel: UserProfileViewModel
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    SecureField("Current Password".localized(), text: $viewModel.currentPassword).poppinsFont(size: 16)
-                    SecureField("New Password".localized(), text: $viewModel.newPassword).poppinsFont(size: 16)
-                    SecureField("Confirm New Password".localized(), text: $viewModel.confirmPassword).poppinsFont(size: 16)
+        VStack(spacing: 24) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Mevcut Şifre".localized())
+                    .poppinsFont(size: 14, weight: .medium)
 
-                    if !viewModel.passwordChangeMessage.isEmpty {
-                        Text(viewModel.passwordChangeMessage)
-                            .foregroundColor(.red)
-                            .poppinsFont(size: 13)
-                    }
+                AppTextField(
+                    title: nil,
+                    placeholder: "Mevcut şifrenizi girin".localized(),
+                    text: $viewModel.currentPassword,
+                    isSecure: true
+                )
+            }
 
-                    Button("Save Password".localized()) {
-                        viewModel.updatePassword()
-                    }
-                    .foregroundColor(.blue)
-                    .poppinsFont(size: 16, weight: .semibold)
-                }
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Yeni Şifre".localized())
+                    .poppinsFont(size: 14, weight: .medium)
+
+                AppTextField(
+                    title: nil,
+                    placeholder: "Yeni şifre oluşturun".localized(),
+                    text: $viewModel.newPassword,
+                    isSecure: true
+                )
             }
-            .navigationTitle("Change Password".localized())
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Yeni Şifre (Tekrar)".localized())
+                    .poppinsFont(size: 14, weight: .medium)
+
+                AppTextField(
+                    title: nil,
+                    placeholder: "Yeni şifrenizi tekrar girin".localized(),
+                    text: $viewModel.confirmPassword,
+                    isSecure: true
+                )
             }
+
+            if !viewModel.passwordChangeMessage.isEmpty {
+                Text(viewModel.passwordChangeMessage)
+                    .foregroundColor(AppTheme.Colors.error)
+                    .poppinsFont(size: 13, weight: .regular)
+                    .multilineTextAlignment(.center)
+            }
+
+            PrimaryButton(title: "Kaydet".localized()) {
+                viewModel.updatePassword()
+            }
+
+            Spacer()
         }
+        .padding(AppTheme.Layout.horizontalPadding)
+        .navigationTitle("Şifre Değiştir".localized())
+        .navigationBarTitleDisplayMode(.inline)
     }
-
+}

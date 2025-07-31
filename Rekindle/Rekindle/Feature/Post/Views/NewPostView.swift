@@ -24,35 +24,16 @@ struct NewPostView: View {
         ScrollView {
             VStack(spacing: 24) {
                 
-                // FOTOĞRAF GÖSTERİMİ / YER TUTUCU
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
-                        .frame(height: 250)
-                        .background(Color.gray.opacity(0.1))
-                    
-                    if let image = viewModel.selectedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 250)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    } else {
-                        Text("Henüz fotoğraf seçilmedi")
-                            .foregroundColor(.gray)
-                            .poppinsFont(size: 14, weight: .regular)
-                    }
-                }
+                PostImagePlaceholder(image: viewModel.selectedImage)
 
-                // FOTOĞRAF SEÇ BUTONU
                 PhotosPicker(selection: $pickerItem, matching: .images) {
-                    Text("📷 Fotoğraf Seç")
-                        .poppinsFont(size: 16, weight: .semibold)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 30)
-                        .background(Color.blue.opacity(0.1))
-                        .foregroundColor(.blue)
-                        .cornerRadius(10)
+                    Text("📷 Fotoğraf Seç".localized())
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(AppTheme.Colors.primary)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .font(AppTheme.Fonts.subheading)
                 }
                 .onChange(of: pickerItem) { newItem in
                     Task {
@@ -65,30 +46,32 @@ struct NewPostView: View {
 
                 // AÇIKLAMA ALANI
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Açıklama")
+                    Text("Açıklama".localized())
                         .poppinsFont(size: 14, weight: .semibold)
-                    TextField("Gönderinize bir açıklama ekleyin...", text: $viewModel.caption)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
+
+                    AppTextField(
+                        title: nil,
+                        placeholder: "Gönderinize bir açıklama ekleyin...".localized(),
+                        text: $viewModel.caption
+                    )
                 }
 
-                // HERKESE AÇIK TOGGLE
+
                 Toggle(isOn: $viewModel.isPublic) {
-                    Text("Herkese açık paylaş")
+                    Text("Herkese açık paylaş".localized())
                         .poppinsFont(size: 14, weight: .medium)
                 }
                 .padding(.horizontal)
 
                 // PAYLAŞ BUTONU
                 if isUploading {
-                    ProgressView("Paylaşılıyor...")
+                    ProgressView("Paylaşılıyor...".localized())
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue.opacity(0.1))
+                        .background(AppTheme.Colors.primary.opacity(0.1))
                         .cornerRadius(12)
                 } else {
-                    Button(action: {
+                    PrimaryButton(title: "Paylaş".localized()) {
                         isUploading = true
                         viewModel.uploadPost { success in
                             isUploading = false
@@ -98,14 +81,6 @@ struct NewPostView: View {
                                 dismiss()
                             }
                         }
-                    }) {
-                        Text("Paylaş")
-                            .poppinsFont(size: 16, weight: .semibold)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 40)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
                     }
                 }
 
@@ -113,7 +88,7 @@ struct NewPostView: View {
             }
             .padding()
         }
-        .navigationTitle("Yeni Gönderi")
+        .navigationTitle("Yeni Gönderi".localized())
         .navigationBarTitleDisplayMode(.inline)
     }
 }

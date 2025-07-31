@@ -27,38 +27,14 @@ struct EditProfileView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                
-                // Profil Fotoğrafı
-                VStack {
-                    if let image = viewModel.selectedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 120, height: 120)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                    } else if let imageUrl = viewModel.profileImageUrl, let url = URL(string: imageUrl) {
-                        KFImage(url)
-                            .placeholder {
-                                ProgressView()
-                            }
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 120, height: 120)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                    } else {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 120, height: 120)
-                            .foregroundColor(.gray)
-                    }
+            VStack(spacing: 24) {
+                VStack(spacing: 12) {
+                    AvatarView(image: viewModel.selectedImage, imageUrl: viewModel.profileImageUrl, size: 120)
 
                     PhotosPicker(selection: $selectedItem, matching: .images) {
-                        Text("Profil Fotoğrafını Değiştir")
-                            .poppinsFont(size: 14, weight: .medium)
-                            .foregroundColor(.blue)
+                        Text("Profil Fotoğrafını Değiştir".localized())
+                            .font(.poppins(size: 14, weight: .medium))
+                            .foregroundColor(AppTheme.Colors.primary)
                     }
                     .onChange(of: selectedItem) { newItem in
                         if let item = newItem {
@@ -72,105 +48,52 @@ struct EditProfileView: View {
                     }
                 }
 
-                // Ad
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Ad").poppinsFont(size: 16, weight: .semibold)
-                    TextField("Adınızı girin", text: $viewModel.firstName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .poppinsFont(size: 14)
-                }
+                AppTextField(title: "Ad".localized(), placeholder: "Adınızı girin".localized(), text: $viewModel.firstName)
+                AppTextField(title: "Soyad".localized(), placeholder: "Soyadınızı girin".localized(), text: $viewModel.lastName)
+                AppTextField(title: "Kullanıcı Adı".localized(), placeholder: "Kullanıcı adı belirleyin".localized(), text: $viewModel.username)
+                AppTextField(title: "Telefon Numarası".localized(), placeholder: "05xxxxxxxxx", text: $viewModel.phoneNumber, keyboardType: .phonePad)
 
-                // Soyad
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Soyad").poppinsFont(size: 16, weight: .semibold)
-                    TextField("Soyadınızı girin", text: $viewModel.lastName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .poppinsFont(size: 14)
-                }
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Doğum Tarihi".localized())
+                        .font(.poppins(size: 14, weight: .medium))
+                        .foregroundColor(AppTheme.Colors.textPrimary)
 
-                // Kullanıcı Adı
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Kullanıcı Adı").poppinsFont(size: 16, weight: .semibold)
-                    TextField("Kullanıcı adı belirleyin", text: $viewModel.username)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .poppinsFont(size: 14)
-                }
-
-                // Telefon
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Telefon Numarası").poppinsFont(size: 16, weight: .semibold)
-                    TextField("05xxxxxxxxx", text: $viewModel.phoneNumber)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .keyboardType(.phonePad)
-                        .poppinsFont(size: 14)
-                }
-
-                // Doğum Tarihi
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Doğum Tarihi").poppinsFont(size: 16, weight: .semibold)
                     DatePicker("", selection: $viewModel.birthDate, displayedComponents: .date)
                         .datePickerStyle(CompactDatePickerStyle())
                         .labelsHidden()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
-                // Kaydet Butonu
-                Button(action: {
+
+                PrimaryButton(title: isSaving ? "Kaydediliyor...".localized() : "Kaydet".localized()) {
                     isSaving = true
                     viewModel.updateProfile { success in
                         isSaving = false
                         if success {
                             didCompleteProfile = true
                             showSuccessAlert = true
-                        } else {
-                            print("Güncelleme başarısız.")
                         }
-                    }
-                }) {
-                    if isSaving{
-                        HStack{
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                            Text("Kaydediliyor...")
-                                .poppinsFont(size: 16, weight: .semibold)
-                        }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color("OnboardingBlue"))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }else{
-                        Text("Kaydet")
-                            .poppinsFont(size: 16, weight: .semibold)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                     }
                 }
                 .disabled(isSaving)
-                
-                // Şifreyi Değiştir Butonu
+
                 NavigationLink(destination: ChangePasswordView(viewModel: viewModel)) {
-                    Text("Şifreyi Değiştir")
-                        .poppinsFont(size: 16, weight: .semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.red.opacity(0.1))
-                        .foregroundColor(.red)
-                        .cornerRadius(10)
+                    Text("Şifreyi Değiştir".localized())
+                        .font(.poppins(size: 12))
+                        .foregroundColor(AppTheme.Colors.primary)
+                        .padding(.top, 8)
                 }
 
             }
-            .padding()
+            .padding(AppTheme.Layout.horizontalPadding)
         }
-        .navigationTitle("Profili Düzenle")
+        .navigationTitle("Profili Düzenle".localized())
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Profiliniz başarıyla güncellendi!", isPresented: $showSuccessAlert) {
-            Button("Tamam") {
+        .alert("Profiliniz başarıyla güncellendi!".localized(), isPresented: $showSuccessAlert) {
+            Button("Tamam".localized()) {
                 dismiss()
             }
-            Button("Düzenlemeye Devam Et", role: .cancel) {}
+            Button("Düzenlemeye Devam Et".localized(), role: .cancel) {}
         }
     }
 }

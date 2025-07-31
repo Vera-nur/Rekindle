@@ -31,26 +31,26 @@ struct ForgotPasswordView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
 
-            TextField("Email address".localized(), text: $email)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
+            AppTextField(
+                title: "Email".localized(),
+                placeholder: "you@example.com",
+                text: $email,
+                keyboardType: .emailAddress,
+                icon: "envelope"
+            )
 
-            Button("Send Reset Email".localized()) {
-                if email.isEmpty {
-                    message = "Please enter your email.".localized()
-                    return
-                }
-                viewModel.resetPassword(email: email)
-                showResetAlert = true
-            }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color("Blue"))
-            .foregroundColor(.white)
-            .cornerRadius(10)
+            PrimaryButton(
+                title: "Send Reset Email".localized(),
+                action: {
+                    if email.isEmpty {
+                        message = "Please enter your email.".localized()
+                        return
+                    }
+                    viewModel.resetPassword(email: email)
+                    showResetAlert = true
+                },
+                backgroundColor: AppTheme.Colors.primary
+            )
 
             if let message = message {
                 Text(message)

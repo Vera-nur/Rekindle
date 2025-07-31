@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct PostImageView: View {
+struct GridPostImageView: View {
     let imageUrl: String?
 
     var body: some View {

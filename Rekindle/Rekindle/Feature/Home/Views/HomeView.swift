@@ -13,18 +13,30 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 20) {
-                    ForEach(viewModel.posts) { post in
-                        PostCardView(post: post, showMenu: false)
+                if viewModel.posts.isEmpty {
+                    VStack(spacing: 12) {
+                        Image(systemName: "square.stack.3d.down.forward")
+                            .font(.system(size: 50))
+                            .foregroundColor(.gray)
+
+                        Text("Henüz paylaşım yok.".localized())
+                            .poppinsFont(size: 16)
+                            .foregroundColor(.gray)
                     }
+                    .padding(.top, 100)
+                } else {
+                    VStack(spacing: 20) {
+                        ForEach(viewModel.posts) { post in
+                            PostCardView(post: post, showMenu: false)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.top)
                 }
-                .padding()
             }
-            .navigationTitle("Anasayfa")
+            .navigationTitle("Anasayfa".localized())
         }
         .onAppear {
-            
-            
             viewModel.loadPosts()
         }
     }

@@ -11,30 +11,30 @@ struct RegisterView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.dismiss) var dismiss
     @State private var navigateToEditProfile = false
-    
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.systemGray6).ignoresSafeArea()
+                AppTheme.Colors.background.ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 30) {
+                        
                         // Başlık
                         Text("Create Your Account".localized())
                             .poppinsFont(size: 26, weight: .bold)
-                            .foregroundColor(Color("Blue"))
+                            .foregroundColor(AppTheme.Colors.primary)
                             .padding(.top, 40)
 
                         // Form
                         VStack(spacing: 20) {
-                            CustomTextField(title: "First Name".localized(), text: $viewModel.firstName)
-                            CustomTextField(title: "Last Name".localized(), text: $viewModel.lastName)
+                            AppTextField(title: nil, placeholder: "First Name".localized(), text: $viewModel.firstName)
+                            AppTextField(title: nil, placeholder: "Last Name".localized(), text: $viewModel.lastName)
 
                             VStack(alignment: .leading, spacing: 6) {
                                 Text("Birth Date".localized())
                                     .font(.caption)
-                                    .foregroundColor(Color.black.opacity(0.85))
+                                    .foregroundColor(.black.opacity(0.85))
                                 DatePicker("", selection: $viewModel.birthDate, displayedComponents: .date)
                                     .labelsHidden()
                                     .datePickerStyle(.compact)
@@ -48,9 +48,9 @@ struct RegisterView: View {
                                     )
                             }
 
-                            CustomTextField(title: "Phone Number".localized(), text: $viewModel.phoneNumber, keyboardType: .phonePad)
-                            CustomTextField(title: "Email".localized(), text: $viewModel.email, keyboardType: .emailAddress)
-                            SecureInputField(title: "Password".localized(), text: $viewModel.password)
+                            AppTextField(title: nil, placeholder: "Phone Number".localized(), text: $viewModel.phoneNumber, keyboardType: .phonePad)
+                            AppTextField(title: nil, placeholder: "Email".localized(), text: $viewModel.email, keyboardType: .emailAddress)
+                            AppTextField(title: nil, placeholder: "Password".localized(), text: $viewModel.password, isSecure: true)
 
                             if let error = viewModel.errorMessage {
                                 Text(error)
@@ -61,33 +61,29 @@ struct RegisterView: View {
                             }
                         }
                         .padding()
-                        .background(Color.white)
+                        .background(.white)
                         .cornerRadius(16)
                         .shadow(color: .gray.opacity(0.1), radius: 10, x: 0, y: 5)
                         .padding(.horizontal)
 
-                        // Register Butonu
-                        Button(action: {
-                            viewModel.register()
-                        }) {
-                            Text("Register".localized())
-                                .poppinsFont(size: 16, weight: .semibold)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("Blue"))
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
-                                .shadow(color: Color("Blue").opacity(0.3), radius: 5, x: 0, y: 5)
-                        }
+                        // Register Button
+                        PrimaryButton(
+                            title: "Register".localized(),
+                            action: {
+                                viewModel.register()
+                            },
+                            backgroundColor: AppTheme.Colors.primary
+                        )
                         .padding(.horizontal)
 
-                        // Geri Dön
-                        Button("Back to Login".localized()) {
-                            dismiss()
-                        }
-                        .poppinsFont(size: 12)
-                        .foregroundColor(Color("Blue"))
-                        .padding(.top, 5)
+                        // Back to Login
+                        SecondaryButton(
+                            title: "Back to Login".localized(),
+                            action: {
+                                dismiss()
+                            },
+                            topPadding: 5
+                        )
 
                         Spacer()
                     }

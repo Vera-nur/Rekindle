@@ -23,20 +23,7 @@ struct ProfileView: View {
             VStack {
                 // Profil Fotoğrafı ve Kullanıcı Adı
                 HStack(alignment: .center, spacing: 16) {
-                    if let urlString = viewModel.profileImageUrl,
-                       let url = URL(string: urlString) {
-                        KFImage(url)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 80, height: 80)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.gray, lineWidth: 1))
-                    } else {
-                        Image(systemName: "person.crop.circle")
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                            .foregroundColor(.gray)
-                    }
+                    AvatarView(image: nil, imageUrl: viewModel.profileImageUrl, size: 80)
 
                     Text(viewModel.username)
                         .poppinsFont(size: 24, weight: .semibold)

@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@:" : {
+
+    },
+    "Ana Sayfa" : {
+
+    },
+    "Anılarım" : {
+
+    },
+    "Ara" : {
+
+    },
+    "Beğenilenler" : {
+
+    },
+    "Çıkış yapmak istiyor musunuz?" : {
+
+    },
+    "Devam Et" : {
+
+    },
+    "Evet" : {
+
+    },
+    "Geri Dön" : {
+
+    },
+    "Gönderi" : {
+
+    },
+    "Hayır" : {
+
+    },
+    "Keşfetmeye Başla" : {
+
+    },
+    "Profil" : {
+
+    },
+    "Profili Düzenle" : {
+
+    },
+    "Rekindle" : {
+
+    }
+  },
+  "version" : "1.0"
+}

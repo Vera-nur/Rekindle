@@ -12,7 +12,7 @@ struct SearchView: View {
 
     var body: some View {
             VStack {
-                TextField("Kullanıcı adı ara", text: $viewModel.searchText)
+                TextField("Kullanıcı adı ara".localized(), text: $viewModel.searchText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .onChange(of: viewModel.searchText) { _ in
@@ -30,6 +30,6 @@ struct SearchView: View {
                 }
                 .listStyle(PlainListStyle())
             }
-        .navigationTitle("Kullanıcı Ara")
+            .navigationTitle("Kullanıcı Ara".localized())
     }
 }
