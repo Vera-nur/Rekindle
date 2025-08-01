@@ -9,56 +9,82 @@ import SwiftUI
 import Kingfisher
 
 struct PostCardView: View {
-    let post: Post
-    let showMenu: Bool
-
-    @StateObject private var viewModel: PostCardViewModel
-    @State private var isEditingCaption = false
-    @State private var editedCaption = ""
-    @State private var showSuccessMessage = false
+    @StateObject private var vm: PostCardViewModel
     @Environment(\.dismiss) var dismiss
+    @State private var editedCaption: String = ""
 
     init(post: Post, showMenu: Bool = false) {
-        self.post = post
-        self.showMenu = showMenu
-        _viewModel = StateObject(wrappedValue: PostCardViewModel(postId: post.id ?? ""))
+        _vm = StateObject(
+            wrappedValue: PostCardViewModel(post: post, showMenu: showMenu)
+        )
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            // Üst Header
+
+            // — Header
             PostHeaderView(
-                username: post.username,
-                profileImageUrl: post.profileImageUrl,
-                showMenu: showMenu,
+                username: vm.post.username,
+                profileImageUrl: vm.post.profileImageUrl,
+                showMenu: vm.showMenu,
                 onDelete: {
-                    viewModel.deletePost {
-                        dismiss()
-                    }
+                  vm.deletePost {
+                    dismiss()
+                  }
                 },
                 onEdit: {
-                    editedCaption = post.caption ?? ""
-                    isEditingCaption = true
+                    editedCaption = vm.caption
+                    vm.startEditingCaption()
                 }
             )
 
-            // Gönderi Görseli
-            PostImageView(imageUrl: post.imageUrl)
+            // — Müzik Bilgisi
+            if let title = vm.post.trackTitle,
+               let artist = vm.post.trackArtist {
+                HStack(spacing: 6) {
+                    Image(systemName: "music.note")
+                    Text("\(artist) · \(title)")
+                        .font(.subheadline)
+                        .lineLimit(1)
+                    Spacer()
+                }
+                .padding(.horizontal)
+            }
 
-            // Açıklama Alanı
+            // — Görsel + Ses Butonu
+            ZStack(alignment: .bottomTrailing) {
+                PostImageView(imageUrl: vm.post.imageUrl)
+
+                if vm.player != nil {
+                    Button {
+                        vm.toggleAudio()
+                    } label: {
+                        Image(systemName: vm.isPlayingAudio
+                              ? "speaker.wave.3.fill"
+                              : "speaker.slash.fill")
+                            .padding(8)
+                            .background(Color.white.opacity(0.8))
+                            .clipShape(Circle())
+                            .padding(12)
+                    }
+                }
+            }
+
             PostCaptionSection(
-                post: post,
-                isEditingCaption: $isEditingCaption,
-                editedCaption: $editedCaption,
-                viewModel: viewModel,
-                showSuccessMessage: $showSuccessMessage
+                username: vm.post.username,
+                caption: vm.caption,
+                isEditing: $vm.isEditingCaption,
+                editedText: $editedCaption,
+                onSave: { vm.saveCaption(editedCaption) { _ in } },
+                showSuccess: $vm.showSuccessMessage
             )
 
-            // Beğen Butonu
-            PostActionButtons(viewModel: viewModel)
+            PostActionButtons(viewModel: vm)
 
-            // Zaman
-            PostTimestampView(date: post.timestamp)
+            PostTimestampView(date: vm.post.timestamp)
+        }
+        .onAppear {
+            vm.initializeAudio()
         }
         .padding(.vertical)
         .background(Color(.systemBackground))
@@ -66,3 +92,5 @@ struct PostCardView: View {
         .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }
+
+

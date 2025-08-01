@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseStorage
 import PhotosUI
 import Firebase
+import Kingfisher
 
 
 struct NewPostView: View {
@@ -19,6 +20,8 @@ struct NewPostView: View {
     @State private var pickerItem: PhotosPickerItem?
     @State private var isUploading = false
     @Environment(\.dismiss) var dismiss
+    
+    @State private var showMusicSheet = false
 
     var body: some View {
         ScrollView {
@@ -54,6 +57,27 @@ struct NewPostView: View {
                         placeholder: "Gönderinize bir açıklama ekleyin...".localized(),
                         text: $viewModel.caption
                     )
+                }
+                
+                Button {
+                  showMusicSheet = true
+                } label: {
+                  HStack {
+                    Image(systemName: "music.note.list")
+                    Text(viewModel.selectedTrack?.title ?? "Şarkı Ekle")
+                      .lineLimit(1)
+                    Spacer()
+                    if viewModel.selectedTrack != nil {
+                      Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.green)
+                    }
+                  }
+                  .padding()
+                  .background(Color.secondary.opacity(0.2))
+                  .cornerRadius(12)
+                }
+                .sheet(isPresented: $showMusicSheet) {
+                  TrackSearchView(selectedTrack: $viewModel.selectedTrack)
                 }
 
 

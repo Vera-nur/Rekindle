@@ -20,7 +20,7 @@ class OnboardingViewModel: ObservableObject {
         OnboardingPage(title: "Kolayca Düzenle",
                        subtitle: "Kategorilere ayır, notlar ekle.",
                        imageName: "organize_icon",
-                       backgroundColor: Color("OnboardingPurple")),
+                       backgroundColor: Color("OnboardingBlue")),
         
         OnboardingPage(title: "Yıllar Sonra Hatırla",
                        subtitle: "Geçmişe bir pencere aç.",

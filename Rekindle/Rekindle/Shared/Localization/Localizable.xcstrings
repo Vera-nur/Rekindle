@@ -4,6 +4,16 @@
     "" : {
 
     },
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
     "%@:" : {
 
     },
@@ -37,6 +47,9 @@
     "Hayır" : {
 
     },
+    "Kapat" : {
+
+    },
     "Keşfetmeye Başla" : {
 
     },
@@ -47,6 +60,12 @@
 
     },
     "Rekindle" : {
+
+    },
+    "Şarkı Seç" : {
+
+    },
+    "Şarkı veya sanatçı ara" : {
 
     }
   },

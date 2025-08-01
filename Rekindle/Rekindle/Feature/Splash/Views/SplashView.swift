@@ -26,10 +26,10 @@ struct SplashView: View {
                 }
             } else {
                 VStack {
-                    Image("App Icon")
+                    /*Image("App Icon")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 150, height: 150)*/
 
                     Text("Rekindle")
                         .font(.largeTitle)

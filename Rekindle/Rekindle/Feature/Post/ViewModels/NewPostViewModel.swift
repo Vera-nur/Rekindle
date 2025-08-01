@@ -17,7 +17,9 @@ class NewPostViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var caption: String = ""
     @Published var isPublic: Bool = true
-
+    
+    @Published var selectedTrack: Audius.Track?
+    
     func uploadPost(completion: @escaping (Bool) -> Void) {
         guard let imageData = selectedImage?.jpegData(compressionQuality: 0.8),
               let userId = Auth.auth().currentUser?.uid else {
@@ -64,7 +66,8 @@ class NewPostViewModel: ObservableObject {
                     let profileImageUrl = data["profileImageUrl"] as? String ?? ""
 
                     // 🔥 POST VERİSİ
-                    let postData: [String: Any] = [
+                    
+                    var postData: [String: Any] = [
                         "imageUrl": imageUrl,
                         "caption": self.caption,
                         "timestamp": Timestamp(),
@@ -73,6 +76,15 @@ class NewPostViewModel: ObservableObject {
                         "username": username,
                         "profileImageUrl": profileImageUrl
                     ]
+                    
+                    if let track = self.selectedTrack {
+                      postData["trackId"]          = track.id
+                      postData["trackTitle"]       = track.title
+                      postData["trackArtist"]      = track.user.name
+                      postData["trackArtworkUrl"]  = track.artwork?.small?.absoluteString ?? ""
+                    }
+                    
+                    
 
                     Firestore.firestore().collection("posts").addDocument(data: postData) { error in
                         if let error = error {
@@ -87,4 +99,6 @@ class NewPostViewModel: ObservableObject {
             }
         }
     }
+    
+    
 }
