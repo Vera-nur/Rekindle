@@ -16,27 +16,18 @@ struct TrackSearchView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Arama Çubuğu
-                HStack {
-                    TextField("Şarkı veya sanatçı ara", text: $vm.query)
-                        .textFieldStyle(.roundedBorder)
-                        .submitLabel(.search)
-                        .onSubmit {
-                            Task { await vm.search() }
-                        }
-                    Button("Ara") {
+                TextField("Şarkı veya sanatçı ara".localized(), text: $vm.query)
+                    .textFieldStyle(.roundedBorder)
+                    .submitLabel(.search)
+                    .onSubmit {
                         Task { await vm.search() }
                     }
-                }
-                .padding()
+                    .padding()
 
-                // Yükleniyor Göstergesi
                 if vm.isLoading {
-                    ProgressView()
-                        .padding()
+                    ProgressView().padding()
                 }
 
-                // Sonuç Listesi
                 List(vm.results) { track in
                     HStack {
                         if let url = track.artwork?.small {
@@ -47,8 +38,7 @@ struct TrackSearchView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 4))
                         }
                         VStack(alignment: .leading) {
-                            Text(track.title)
-                                .lineLimit(1)
+                            Text(track.title).lineLimit(1)
                             Text(track.user.name)
                                 .font(.caption)
                                 .foregroundColor(.secondary)
@@ -70,8 +60,11 @@ struct TrackSearchView: View {
             .navigationTitle("Şarkı Seç".localized())
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Kapat") { dismiss() }
+                    Button("Kapat".localized()) { dismiss() }
                 }
+            }
+            .onAppear {
+                Task { await vm.search() }
             }
         }
     }

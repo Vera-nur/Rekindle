@@ -16,35 +16,39 @@ enum MusicError: Error {
 
 class MusicService {
     static let shared = MusicService()
-    private let baseURL = "https://discoveryprovider.audius.co/v1/tracks/search"
+    private let searchBaseURL = "https://discoveryprovider.audius.co/v1/tracks/search"
+    private let trendingBaseURL = "https://discoveryprovider.audius.co/v1/tracks/trending"
+    private let appName = "rekindle"
 
     func searchTracks(query: String) async throws -> [Audius.Track] {
-        guard var comp = URLComponents(string: baseURL) else {
+        guard var comp = URLComponents(string: searchBaseURL) else {
             throw MusicError.invalidURL
         }
         comp.queryItems = [
             URLQueryItem(name: "query", value: query),
-            URLQueryItem(name: "app_name", value: "rekindle")
+            URLQueryItem(name: "app_name", value: appName)
         ]
         guard let url = comp.url else {
             throw MusicError.invalidURL
         }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let response = try JSONDecoder().decode(Audius.TrackResponse.self, from: data)
+        return response.data
+    }
 
-        do {
-            // 2) Veri çekme
-            let (data, _) = try await URLSession.shared.data(from: url)
-            // 3) JSON decode
-            let response = try JSONDecoder()
-                .decode(Audius.TrackResponse.self, from: data)
-            // 4) Sonuçları döndür
-            return response.data
-
-        } catch let decodingError as DecodingError {
-            // JSON parse hatası
-            throw MusicError.decoding(decodingError)
-        } catch {
-            // Ağ veya diğer hatalar
-            throw MusicError.network(error)
+    func trendingTracks(time: String = "week") async throws -> [Audius.Track] {
+        guard var comp = URLComponents(string: trendingBaseURL) else {
+            throw MusicError.invalidURL
         }
+        comp.queryItems = [
+            URLQueryItem(name: "time", value: time),
+            URLQueryItem(name: "app_name", value: appName)
+        ]
+        guard let url = comp.url else {
+            throw MusicError.invalidURL
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let response = try JSONDecoder().decode(Audius.TrackResponse.self, from: data)
+        return response.data
     }
 }

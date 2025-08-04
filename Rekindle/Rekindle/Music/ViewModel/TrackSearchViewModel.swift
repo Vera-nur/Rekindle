@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class TrackSearchViewModel: ObservableObject {
     @Published var query: String = ""
     @Published var results: [Audius.Track] = []
@@ -15,15 +16,32 @@ class TrackSearchViewModel: ObservableObject {
 
     func search() async {
         let trimmed = query.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty else { return }
+        if trimmed.isEmpty {
+            await performTrending()
+        } else {
+            await performSearch(query: trimmed)
+        }
+    }
+
+    private func performSearch(query: String) async {
         isLoading = true
+        defer { isLoading = false }
         do {
-            let tracks = try await MusicService.shared.searchTracks(query: trimmed)
-            results = tracks
+            results = try await MusicService.shared.searchTracks(query: query)
         } catch {
-            print("🎵 Arama hatası:", error)
+            print("🎵 Search error:", error)
             results = []
         }
-        isLoading = false
+    }
+
+    private func performTrending(time: String = "week") async {
+        isLoading = true
+        defer { isLoading = false }
+        do {
+            results = try await MusicService.shared.trendingTracks(time: time)
+        } catch {
+            print("🎵 Trending error:", error)
+            results = []
+        }
     }
 }
