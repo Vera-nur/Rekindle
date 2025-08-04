@@ -51,7 +51,7 @@ struct PostCardView: View {
                 .padding(.horizontal)
             }
 
-            // — Görsel + Ses Butonu
+            // — Görsel + Ses
             ZStack(alignment: .bottomTrailing) {
                 PostImageView(imageUrl: vm.post.imageUrl)
 

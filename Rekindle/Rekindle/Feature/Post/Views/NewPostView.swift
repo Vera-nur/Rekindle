@@ -47,7 +47,6 @@ struct NewPostView: View {
                     }
                 }
 
-                // AÇIKLAMA ALANI
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Açıklama".localized())
                         .poppinsFont(size: 14, weight: .semibold)
@@ -64,7 +63,7 @@ struct NewPostView: View {
                 } label: {
                   HStack {
                     Image(systemName: "music.note.list")
-                    Text(viewModel.selectedTrack?.title ?? "Şarkı Ekle")
+                      Text(viewModel.selectedTrack?.title ?? "Şarkı Ekle".localized())
                       .lineLimit(1)
                     Spacer()
                     if viewModel.selectedTrack != nil {
@@ -87,7 +86,6 @@ struct NewPostView: View {
                 }
                 .padding(.horizontal)
 
-                // PAYLAŞ BUTONU
                 if isUploading {
                     ProgressView("Paylaşılıyor...".localized())
                         .padding()

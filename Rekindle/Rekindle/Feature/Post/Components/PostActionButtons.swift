@@ -19,8 +19,6 @@ struct PostActionButtons: View {
                     .foregroundColor(viewModel.isLiked ? .red : .primary)
                     .font(.title2)
             }
-
-            // İleride başka aksiyonlar eklenirse buraya eklenebilir (yorum, paylaş vs.)
         }
         .padding(.horizontal)
     }

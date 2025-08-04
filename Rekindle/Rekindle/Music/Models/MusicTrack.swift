@@ -1,25 +1,27 @@
-// MARK: – API Response Modelleri
-
-// Models/AudiusModels.swift
+//
+//  MusicTrack.swift
+//  Rekindle
+//
+//  Created by Vera Nur on 1.08.2025.
+//
 
 import Foundation
 
-enum Audius {   // boş bir enum/type yalnızca namespace için
-  // MARK: – API Response
+enum Audius {
   struct TrackResponse: Codable {
     let data: [Track]
   }
 
   struct Track: Identifiable, Codable {
-    let id: String           // JSON'dan id olarak gelecek
+    let id: String
     let title: String
     let artwork: Artwork?
-    let user: User           // artık Audius.User
+    let user: User
     let duration: Int
     let isStreamable: Bool
 
     enum CodingKeys: String, CodingKey {
-      case id           = "id"
+      case id = "id"
       case title
       case artwork
       case user
@@ -40,7 +42,7 @@ enum Audius {   // boş bir enum/type yalnızca namespace için
     }
   }
 
-  struct User: Codable {    // artık global User ile çakışmaz
+  struct User: Codable {
     let name: String
   }
 }

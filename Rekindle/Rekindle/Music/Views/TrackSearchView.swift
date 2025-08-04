@@ -67,7 +67,7 @@ struct TrackSearchView: View {
                 }
                 .listStyle(.plain)
             }
-            .navigationTitle("Şarkı Seç")
+            .navigationTitle("Şarkı Seç".localized())
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Kapat") { dismiss() }
