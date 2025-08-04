@@ -11,6 +11,7 @@ struct RegisterView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.dismiss) var dismiss
     @State private var navigateToEditProfile = false
+    @State private var showSuccessAlert = false
 
     var body: some View {
         NavigationStack {
@@ -89,6 +90,19 @@ struct RegisterView: View {
                     }
                 }
             }
+        }.onChange(of: viewModel.didRegisterNewUser) { newValue in
+            if newValue {
+                showSuccessAlert = true
+               
+            }
+        }
+        .alert("Registration Successful".localized(), isPresented: $showSuccessAlert) {
+            Button("OK".localized()) {
+                dismiss()
+                viewModel.didRegisterNewUser = false
+            }
+        } message: {
+            Text("A verification email has been sent. Please verify your email before logging in.".localized())
         }
     }
 }

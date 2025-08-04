@@ -35,6 +35,8 @@ struct AppTextField: View {
                 } else {
                     TextField(placeholder, text: $text)
                         .keyboardType(keyboardType)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                 }
             }
             .padding()

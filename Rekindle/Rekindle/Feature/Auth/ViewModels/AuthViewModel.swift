@@ -39,8 +39,14 @@ class AuthViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let user = user {
                     self.email = user.email ?? ""
-                    self.currentUserId = user.uid 
-                    self.isAuthenticated = true
+                    self.currentUserId = user.uid
+                    if user.isEmailVerified {
+                        self.isAuthenticated = true
+                    } else {
+                        // Doğrulanmamış kullanıcı otomatik olarak girişli geliyor; doğrulama bekleniyor
+                        self.isAuthenticated = false
+                        self.errorMessage = "Please verify your email. A verification link was sent." // isteğe bağlı bilgilendirme
+                    }
                 } else {
                     self.isAuthenticated = false
                 }
@@ -122,15 +128,24 @@ class AuthViewModel: ObservableObject {
                         self.errorMessage = "Verification email could not be sent: \(emailError.localizedDescription)"
                         return
                     }
+                    
+                    self.saveUserInfo(uid: uid)
+                    
+                    do {
+                        try Auth.auth().signOut()
+                    } catch {
+                        // Sign out başarısızsa bile devam et
+                    }
 
-                    self.errorMessage = "A verification email has been sent. Please verify your email before logging in."
+                    self.errorMessage = nil
                     self.isAuthenticated = false
                     self.isLoggedIn = false
-                    self.didRegisterNewUser = true
+                    self.didRegisterNewUser = true 
+                    self.registrationSuccess = true
                     self.showVerificationAlert = true
                     self.didCompleteProfile = false
 
-                    self.saveUserInfo(uid: uid)
+                    
                 })
             }
         }
