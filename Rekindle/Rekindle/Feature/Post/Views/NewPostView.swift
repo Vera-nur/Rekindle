@@ -13,10 +13,10 @@ import PhotosUI
 import Firebase
 import Kingfisher
 
-
 struct NewPostView: View {
+    @StateObject private var locationManager = LocationManager()
     @StateObject private var viewModel = NewPostViewModel()
-    @State private var isPickerPresented = false
+    @State private var showLocationPicker = false
     @State private var pickerItem: PhotosPickerItem?
     @State private var isUploading = false
     @Environment(\.dismiss) var dismiss
@@ -78,7 +78,20 @@ struct NewPostView: View {
                 .sheet(isPresented: $showMusicSheet) {
                   TrackSearchView(selectedTrack: $viewModel.selectedTrack)
                 }
-
+                
+                VStack(alignment: .leading) {
+                  Text("Konum").font(.subheadline).bold()
+                  if let loc = viewModel.locationName {
+                    HStack {
+                      Image(systemName: "mappin.and.ellipse")
+                      Text(loc)
+                    }
+                  } else {
+                    Button("Konum Ekle") {
+                        viewModel.requestLocation()
+                    }
+                  }
+                }
 
                 Toggle(isOn: $viewModel.isPublic) {
                     Text("Herkese açık paylaş".localized())

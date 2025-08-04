@@ -19,11 +19,11 @@ struct Post: Identifiable, Codable {
     var username: String?
     var isLiked: Bool? = false
     var profileImageUrl: String?
-    
     var trackId: String?
     var trackTitle: String?
     var trackArtist: String?
     var trackArtworkUrl: String?
+    var locationName: String?
 }
 
 //Buraya bakkk 
@@ -38,7 +38,8 @@ extension Post {
         trackId: data["trackId"] as? String,
         trackTitle: data["trackTitle"] as? String,
         trackArtist: data["trackArtist"] as? String,
-        trackArtworkUrl: data["trackArtworkUrl"] as? String
+        trackArtworkUrl: data["trackArtworkUrl"] as? String,
+        locationName: data["locationName"] as? String
       )
     }
   }

@@ -33,7 +33,7 @@ struct PostCaptionSection: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             } else {
-                Text(caption.isEmpty ? "Açıklama yok.".localized() : caption)
+                Text(caption.isEmpty ? "".localized() : caption)
                     .poppinsFont(size: 13)
             }
 

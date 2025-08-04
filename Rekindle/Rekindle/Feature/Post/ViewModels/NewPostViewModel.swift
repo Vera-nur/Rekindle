@@ -13,13 +13,29 @@ import PhotosUI
 import Firebase
 import FirebaseDatabase
 
+@MainActor
 class NewPostViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var caption: String = ""
     @Published var isPublic: Bool = true
+    @Published var locationName: String?
     
     @Published var selectedTrack: Audius.Track?
+    private let locationManager = LocationManager()
+
+    init() {
+      // LocationManager’den gelen adı kendi published’ına bağla
+      locationManager.$locationName
+        .receive(on: DispatchQueue.main)
+        .assign(to: &$locationName)
+    }
+
+    /// View’den çağrılacak: izin iste ve lokasyonu al
+    func requestLocation() {
+      locationManager.requestLocation()
+    }
     
+
     func uploadPost(completion: @escaping (Bool) -> Void) {
         guard let imageData = selectedImage?.jpegData(compressionQuality: 0.8),
               let userId = Auth.auth().currentUser?.uid else {
@@ -74,7 +90,8 @@ class NewPostViewModel: ObservableObject {
                         "userId": userId,
                         "isPublic": self.isPublic,
                         "username": username,
-                        "profileImageUrl": profileImageUrl
+                        "profileImageUrl": profileImageUrl,
+                        "locationName": self.locationName ?? ""
                     ]
                     
                     if let track = self.selectedTrack {
@@ -83,8 +100,7 @@ class NewPostViewModel: ObservableObject {
                       postData["trackArtist"]      = track.user.name
                       postData["trackArtworkUrl"]  = track.artwork?.small?.absoluteString ?? ""
                     }
-                    
-                    
+            
 
                     Firestore.firestore().collection("posts").addDocument(data: postData) { error in
                         if let error = error {

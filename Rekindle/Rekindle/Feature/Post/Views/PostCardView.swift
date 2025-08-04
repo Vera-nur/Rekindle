@@ -78,6 +78,17 @@ struct PostCardView: View {
                 onSave: { vm.saveCaption(editedCaption) { _ in } },
                 showSuccess: $vm.showSuccessMessage
             )
+            
+            if let loc = vm.post.locationName, !loc.isEmpty {
+              HStack(spacing: 4) {
+                Image(systemName: "mappin.and.ellipse")
+                  .foregroundColor(.secondary)
+                Text(loc)
+                  .font(.caption)
+                  .foregroundColor(.secondary)
+              }
+              .padding(.horizontal)
+            }
 
             PostActionButtons(viewModel: vm)
 
