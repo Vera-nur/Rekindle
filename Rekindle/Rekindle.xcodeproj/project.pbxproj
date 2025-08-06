@@ -12,6 +12,7 @@
 		6D612D062E30DFBF004CCD39 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D052E30DFBF004CCD39 /* FirebaseMessaging */; };
 		6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612D072E30DFBF004CCD39 /* FirebaseStorage */; };
 		6D612DAC2E30EB0D004CCD39 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 6D612DAB2E30EB0D004CCD39 /* FirebaseDatabase */; };
+		6D8F51782E420819000DAA79 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 6D8F51772E420819000DAA79 /* GoogleMobileAds */; };
 		6DADBA772E3234C500940A7F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6DADBA762E3234C500940A7F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 				6D612D082E30DFBF004CCD39 /* FirebaseStorage in Frameworks */,
 				6D612D022E30DFBF004CCD39 /* FirebaseAuth in Frameworks */,
 				6D612D042E30DFBF004CCD39 /* FirebaseFirestore in Frameworks */,
+				6D8F51782E420819000DAA79 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +148,7 @@
 				6D612D072E30DFBF004CCD39 /* FirebaseStorage */,
 				6D612DAB2E30EB0D004CCD39 /* FirebaseDatabase */,
 				6DADBA762E3234C500940A7F /* Kingfisher */,
+				6D8F51772E420819000DAA79 /* GoogleMobileAds */,
 			);
 			productName = Rekindle;
 			productReference = 6D612CD12E30DF20004CCD39 /* Rekindle.app */;
@@ -233,6 +236,7 @@
 			packageReferences = (
 				6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6DADBA752E3234C500940A7F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				6D8F51762E420819000DAA79 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6D612CD22E30DF20004CCD39 /* Products */;
@@ -611,6 +615,14 @@
 				minimumVersion = 12.0.0;
 			};
 		};
+		6D8F51762E420819000DAA79 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
 		6DADBA752E3234C500940A7F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -646,6 +658,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6D612D002E30DFBF004CCD39 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
+		};
+		6D8F51772E420819000DAA79 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D8F51762E420819000DAA79 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 		6DADBA762E3234C500940A7F /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

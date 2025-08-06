@@ -12,6 +12,7 @@ import Kingfisher
 struct ProfileView: View {
     @ObservedObject var viewModel: UserProfileViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var rewardedAdManager: RewardedAdManager
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = true
 
     @State private var selectedTab = 0
@@ -91,6 +92,19 @@ struct ProfileView: View {
             }
             .onAppear {
                 viewModel.fetchUserInfo()
+
+                // sayfa açıldığında ödüllü reklam hazırsa göster
+                if rewardedAdManager.isLoaded {
+                    rewardedAdManager.show()
+                } else {
+                    // değilse yükle ve 1 saniye sonra dene
+                    rewardedAdManager.loadAd()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        if rewardedAdManager.isLoaded {
+                            rewardedAdManager.show()
+                        }
+                    }
+                }
             }
         }
     }

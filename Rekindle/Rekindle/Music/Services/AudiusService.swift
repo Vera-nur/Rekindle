@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: – MusicService Errors
 enum MusicError: Error {
     case invalidURL
     case network(Error)

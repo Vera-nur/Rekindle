@@ -11,6 +11,7 @@ struct RootView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
     @AppStorage("didCompleteProfile") var didCompleteProfile: Bool = false
+    @State private var didCheckAuth = false
 
 
     var body: some View {
@@ -28,6 +29,8 @@ struct RootView: View {
             }
         }
         .onAppear {
+            guard !didCheckAuth else { return }
+            didCheckAuth = true
             authViewModel.checkAuthenticationStatus()
         }
     }

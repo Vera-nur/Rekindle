@@ -113,6 +113,7 @@ struct NewPostView: View {
                             if success {
                                 viewModel.caption = ""
                                 viewModel.selectedImage = nil
+                                viewModel.selectedTrack = nil
                                 dismiss()
                             }
                         }
